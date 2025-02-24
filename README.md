@@ -1,4 +1,4 @@
-# Bluegrass_Digital: My Fertility Journey
+# MyFertilityJourneyl: My Fertility Journey
 
 ## Project Description
 MyFertilityJourney is a web application designed to manage and showcase digital assets related to My Fertility Journey. It provides a user-friendly interface for uploading, organizing, and displaying various types of digital content, including personal stories, medical documents, articles, and multimedia resources.

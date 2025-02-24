@@ -5,13 +5,36 @@ Bluegrass_Digital is a web application designed to manage and showcase digital a
 
 ## Project Structure
 ```
-/frontend
-    /src
-        /components
-        /pages
-        /styles
-    /public
-    /tests
+|-- README.md
+|-- backend
+|   |-- Program.cs
+|   |-- Properties
+|   |   `-- launchSettings.json
+|   |-- appsettings.Development.json
+|   |-- appsettings.json
+|   |-- backend.csproj
+|   |-- backend.csproj.user
+|   |-- backend.http
+|-- bluegrass_Digital.sln
+`-- frontend
+    |-- eslint.config.js
+    |-- index.html
+    |-- package-lock.json
+    |-- package.json
+    |-- public
+    |   `-- vite.svg
+    |-- src
+    |   |-- App.css
+    |   |-- App.tsx
+    |   |-- assets
+    |   |   `-- react.svg
+    |   |-- index.css
+    |   |-- main.tsx
+    |   `-- vite-env.d.ts
+    |-- tsconfig.app.json
+    |-- tsconfig.json
+    |-- tsconfig.node.json
+    `-- vite.config.ts
 ```
 
 ## Setup Instructions

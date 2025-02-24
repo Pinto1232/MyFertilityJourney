@@ -87,14 +87,6 @@ To create a production build, use the following command:
 npm run build
 ```
 
-### Contributing
-We welcome contributions from the community. To contribute, please follow these steps:
-1. Fork the repository.
-2. Create a new branch for your feature or bugfix.
-3. Make your changes and commit them with clear and concise messages.
-4. Push your changes to your forked repository.
-5. Create a pull request to the main repository.
-
 ### License
 This project is licensed under the MIT License. See the [LICENSE](../LICENSE) file for more details.
 

@@ -1,7 +1,7 @@
-# Bluegrass_Digital
+# Bluegrass_Digital: My Fertility Journey
 
 ## Project Description
-Bluegrass_Digital is a web application designed to manage and showcase digital assets. It provides a user-friendly interface for uploading, organizing, and displaying various types of digital content.
+Bluegrass_Digital is a web application designed to manage and showcase digital assets related to My Fertility Journey. It provides a user-friendly interface for uploading, organizing, and displaying various types of digital content, including personal stories, medical documents, articles, and multimedia resources.
 
 ## Project Structure
 ```

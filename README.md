@@ -56,40 +56,35 @@ Bluegrass_Digital is a web application designed to manage and showcase digital a
     ```sh
     npm install
     ```
-    or
-    ```sh
-    yarn install
-    ```
 
-### Running the Application
+### Running the Frontend Application
 1. Start the development server:
     ```sh
-    npm start
+    npm run dev
     ```
-    or
+2. Open your browser and navigate to `http://localhost:5173`.
+
+### Running the Backend Application
+1. Navigate to the backend directory:
     ```sh
-    yarn start
+    cd ../backend
     ```
-2. Open your browser and navigate to `http://localhost:3000`.
+2. Run the application:
+    ```sh
+    dotnet run
+    ```
+3. Open your browser and navigate to `http://localhost:5005/weatherforecast` to access the API.
 
 ### Running Tests
 To run the test suite, use the following command:
 ```sh
 npm test
 ```
-or
-```sh
-yarn test
-```
 
 ### Building for Production
 To create a production build, use the following command:
 ```sh
 npm run build
-```
-or
-```sh
-yarn build
 ```
 
 ### Contributing

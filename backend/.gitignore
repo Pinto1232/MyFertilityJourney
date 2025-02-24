@@ -1,0 +1,32 @@
+# Ignore build output directories
+bin/
+obj/
+
+# Ignore user-specific files
+.vscode/
+*.user
+*.rsuser
+*.suo
+*.userosscache
+*.userprefs
+
+# Ignore IDE-specific files
+*.sln.ide
+.vscode/
+
+# Ignore NuGet packages directory
+packages/
+*.nupkg
+
+# Ignore logs and database files
+*.log
+*.db
+*.sqlite
+
+# Ignore temporary files
+*.tmp
+*.temp
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db

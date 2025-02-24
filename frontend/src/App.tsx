@@ -1,12 +1,13 @@
-import './App.css'
+import React from 'react';
+import './App.css';
+import AuthContainer from './components/AuthComponents/AuthContainer';
 
-function App() {
-
+const App: React.FC = () => {
   return (
-    <>
-        <div>Hellow World</div>
-    </>
-  )
-}
+    <div>
+      <AuthContainer />
+    </div>
+  );
+};
 
-export default App
+export default App;

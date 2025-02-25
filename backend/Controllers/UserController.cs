@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
 using backend.Models;
 using backend.Services;
@@ -44,14 +45,15 @@ namespace backend.Controllers
         }
 
         [HttpGet("profile")]
-        [Authorize]
-        public IActionResult GetProfile()
+        public IActionResult GetUserProfile()
         {
-            var userId = User.FindFirst("sub")?.Value;
-            var email = User.FindFirst("email")?.Value;
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var email = User.FindFirst(ClaimTypes.Email)?.Value;
 
-            if (userId == null)
-                return Unauthorized(new { message = "Unauthorized" });
+            if (userId == null || email == null)
+            {
+                return Unauthorized(new { message = "Invalid token claims" });
+            }
 
             return Ok(new { userId, email, message = "Profile data" });
         }

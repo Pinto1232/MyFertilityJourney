@@ -1,6 +1,7 @@
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
+using System.Security.Claims;
 
 namespace backend.Middleware
 {
@@ -13,14 +14,38 @@ namespace backend.Middleware
             _next = next;
         }
 
-        public async Task Invoke(HttpContext context, IConfiguration configuration)
+         public async Task Invoke(HttpContext context)
         {
             var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
 
-            if (token != null)
-                AttachUserToContext(context, configuration, token);
+        if (token != null)
+        {
+            try
+            {
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var key = Encoding.ASCII.GetBytes("your-very-secret-key");
 
-            await _next(context);
+                tokenHandler.ValidateToken(token, new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = "bluegrass-digital-api",
+                    ValidAudience = "bluegrass-digital-users",
+                    IssuerSigningKey = new SymmetricSecurityKey(key)
+                }, out SecurityToken validatedToken);
+
+                var jwtToken = (JwtSecurityToken)validatedToken;
+                var userId = jwtToken.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value;
+
+                context.Items["User"] = userId;
+            }
+            catch
+            {
+                // Invalid token
+            }
+            }
         }
 
         private void AttachUserToContext(HttpContext context, IConfiguration configuration, string token)

@@ -14,6 +14,7 @@ obj/
 # Ignore IDE-specific files
 *.sln.ide
 .vscode/
+runtimes/
 
 # Ignore NuGet packages directory
 packages/
@@ -23,7 +24,10 @@ packages/
 *.log
 *.db
 *.sqlite
-
+*.dll, 
+*.pdb, 
+*.json, 
+*.cache
 # Ignore temporary files
 *.tmp
 *.temp

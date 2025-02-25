@@ -149,7 +149,6 @@ C:\Users\pinto\Documents\Development\bluegrass_Digital\backend\obj\Debug\net9.0\
 C:\Users\pinto\Documents\Development\bluegrass_Digital\backend\obj\Debug\net9.0\staticwebassets\msbuild.buildMultiTargeting.backend.props
 C:\Users\pinto\Documents\Development\bluegrass_Digital\backend\obj\Debug\net9.0\staticwebassets\msbuild.buildTransitive.backend.props
 C:\Users\pinto\Documents\Development\bluegrass_Digital\backend\obj\Debug\net9.0\staticwebassets.pack.json
-C:\Users\pinto\Documents\Development\bluegrass_Digital\backend\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
 C:\Users\pinto\Documents\Development\bluegrass_Digital\backend\obj\Debug\net9.0\backend.csproj.Up2Date
 C:\Users\pinto\Documents\Development\bluegrass_Digital\backend\obj\Debug\net9.0\backend.dll
 C:\Users\pinto\Documents\Development\bluegrass_Digital\backend\obj\Debug\net9.0\refint\backend.dll

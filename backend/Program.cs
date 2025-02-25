@@ -16,7 +16,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: MyAllowSpecificOrigins,
                       policy =>
                       {
-                          policy.WithOrigins("http://localhost:5173/") // Replace with your frontend URL
+                          policy.WithOrigins("http://localhost:5173/") 
                                 .AllowAnyHeader()
                                 .AllowAnyMethod();
                       });
@@ -110,7 +110,7 @@ if (app.Environment.IsDevelopment() || configuration.GetValue<bool>("EnableSwagg
 // app.UseHttpsRedirection();
 
 app.UseRouting();
-app.UseCors(MyAllowSpecificOrigins); // Apply the CORS policy
+app.UseCors(MyAllowSpecificOrigins); 
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();

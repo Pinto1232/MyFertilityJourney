@@ -106,7 +106,7 @@ const AuthContainer: React.FC = () => {
             />
             <Snackbar
                 open={snackbar.open}
-                autoHideDuration={8000}
+                autoHideDuration={6000}
                 onClose={hideSnackbar}
                 anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
             >

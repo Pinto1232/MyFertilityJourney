@@ -1,10 +1,11 @@
+import { Box } from '@mui/material';
 import React from 'react';
 
 const Dashboard: React.FC = () => {
     return (
-        <div>
+        <Box>
             <h1>Welcome to the Dashboard</h1>
-        </div>
+        </Box>
     );
 };
 

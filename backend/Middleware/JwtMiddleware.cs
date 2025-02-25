@@ -28,7 +28,12 @@ namespace backend.Middleware
             try
             {
                 var tokenHandler = new JwtSecurityTokenHandler();
-                var key = Encoding.UTF8.GetBytes(configuration["Jwt:Key"]);
+                var jwtKey = configuration["Jwt:Key"];
+                if (string.IsNullOrEmpty(jwtKey))
+                {
+                    throw new ArgumentNullException("Jwt:Key", "JWT key is not configured.");
+                }
+                var key = Encoding.UTF8.GetBytes(jwtKey);
 
                 tokenHandler.ValidateToken(token, new TokenValidationParameters
                 {

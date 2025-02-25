@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using backend.Models;
 using backend.Services;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace backend.Controllers
 {
@@ -43,16 +44,15 @@ namespace backend.Controllers
             return Ok(new { token });
         }
 
+        [Authorize(Roles = "User")]
         [HttpGet("profile")]
-        [Authorize]
         public IActionResult GetProfile()
         {
-            var userId = User.FindFirst("sub")?.Value;
-            var email = User.FindFirst("email")?.Value;
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var email = User.FindFirst(ClaimTypes.Email)?.Value;
 
             if (userId == null)
                 return Unauthorized(new { message = "Unauthorized" });
-
             return Ok(new { userId, email, message = "Profile data" });
         }
     }

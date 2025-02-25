@@ -41,13 +41,13 @@ namespace backend.Middleware
                     IssuerSigningKey = new SymmetricSecurityKey(key),
                     ValidateIssuer = true,
                     ValidateAudience = true,
-                    ValidIssuer = "bluegrass-digital-api",
-                    ValidAudience = "bluegrass-digital-users",
+                    ValidIssuer = configuration["Jwt:Issuer"],
+                    ValidAudience = configuration["Jwt:Audience"],
                     ClockSkew = TimeSpan.Zero
                 }, out SecurityToken validatedToken);
 
                 var jwtToken = (JwtSecurityToken)validatedToken;
-                context.Items["User"] = jwtToken.Claims.First(x => x.Type == "sub").Value;
+                context.Items["User"] = jwtToken.Claims.First(x => x.Type == JwtRegisteredClaimNames.Sub).Value;
             }
             catch
             {

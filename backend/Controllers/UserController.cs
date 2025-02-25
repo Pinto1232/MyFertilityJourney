@@ -1,13 +1,8 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
 using backend.Models;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
-using BCrypt.Net;
+using backend.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace backend.Controllers
 {
@@ -16,68 +11,55 @@ namespace backend.Controllers
     public class UserController : ControllerBase
     {
         private readonly DataContext _context;
-        private readonly IConfiguration _configuration;
+        private readonly AuthService _authService;
 
-        public UserController(DataContext context, IConfiguration configuration)
+        public UserController(DataContext context, AuthService authService)
         {
             _context = context;
-            _configuration = configuration;
+            _authService = authService;
         }
 
         [HttpPost("register")]
         public async Task<IActionResult> Register(User user)
         {
-            try
-            {
-                if (await _context.Users.AnyAsync(u => u.Email == user.Email))
-                {
-                    return BadRequest(new { message = "Email is already taken" });
-                }
+            if (await _context.Users.AnyAsync(u => u.Email == user.Email))
+                return BadRequest(new { message = "Email is already taken" });
 
-                user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
-                _context.Users.Add(user);
-                await _context.SaveChangesAsync();
-                return Ok(new { message = "User registered successfully" });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new { message = "An error occurred while registering the user", error = ex.Message });
-            }
+            user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
+
+            return Ok(new { message = "User registered successfully" });
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login(User user)
+        public async Task<IActionResult> Login(LoginRequest request)
         {
-            try
-            {
-                var dbUser = await _context.Users.SingleOrDefaultAsync(u => u.Email == user.Email);
-                if (dbUser == null || !BCrypt.Net.BCrypt.Verify(user.Password, dbUser.Password))
-                {
-                    return Unauthorized(new { message = "Invalid email or password" });
-                }
+            var user = await _context.Users.SingleOrDefaultAsync(u => u.Email == request.Email);
+            if (user == null || !BCrypt.Net.BCrypt.Verify(request.Password, user.Password))
+                return Unauthorized(new { message = "Invalid credentials" });
 
-                var tokenHandler = new JwtSecurityTokenHandler();
-                var jwtKey = _configuration["Jwt:Key"];
-                if (string.IsNullOrEmpty(jwtKey))
-                {
-                    return StatusCode(500, new { message = "JWT Key is not configured properly" });
-                }
-                var key = Encoding.ASCII.GetBytes(jwtKey);
-                var tokenDescriptor = new SecurityTokenDescriptor
-                {
-                    Subject = new ClaimsIdentity(new[] { new Claim("id", dbUser.Id.ToString()) }),
-                    Expires = DateTime.UtcNow.AddDays(7),
-                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-                };
-                var token = tokenHandler.CreateToken(tokenDescriptor);
-                var tokenString = tokenHandler.WriteToken(token);
-
-                return Ok(new { Token = tokenString });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new { message = "An error occurred while logging in", error = ex.Message });
-            }
+            var token = _authService.GenerateJwtToken(user.Id.ToString(), user.Email, "User");
+            return Ok(new { token });
         }
+
+        [HttpGet("profile")]
+        [Authorize]
+        public IActionResult GetProfile()
+        {
+            var userId = User.FindFirst("sub")?.Value;
+            var email = User.FindFirst("email")?.Value;
+
+            if (userId == null)
+                return Unauthorized(new { message = "Unauthorized" });
+
+            return Ok(new { userId, email, message = "Profile data" });
+        }
+    }
+
+    public class LoginRequest
+    {
+        public string? Email { get; set; }
+        public string? Password { get; set; }
     }
 }

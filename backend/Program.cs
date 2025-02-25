@@ -8,6 +8,20 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Define CORS policy name
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+                      policy =>
+                      {
+                          policy.WithOrigins("http://localhost:5173/") // Replace with your frontend URL
+                                .AllowAnyHeader()
+                                .AllowAnyMethod();
+                      });
+});
+
 // Load configuration
 var configuration = builder.Configuration;
 
@@ -66,17 +80,6 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
-// CORS Configuration
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowAll", policy =>
-    {
-        policy.AllowAnyOrigin()
-              .AllowAnyMethod()
-              .AllowAnyHeader();
-    });
-});
-
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
@@ -107,7 +110,7 @@ if (app.Environment.IsDevelopment() || configuration.GetValue<bool>("EnableSwagg
 // app.UseHttpsRedirection();
 
 app.UseRouting();
-app.UseCors("AllowAll");
+app.UseCors(MyAllowSpecificOrigins); // Apply the CORS policy
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();

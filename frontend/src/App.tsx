@@ -1,15 +1,14 @@
 import React from 'react';
-import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import AuthContainer from './components/AuthComponents/AuthContainer';
-import Dashboard from '../Dashboard/Dashboard';
+import DashboardContainer from './components/Dashboard/DashboardContainer';
 
 
 const App: React.FC = () => (
   <Router>
     <Routes>
       <Route path="/" element={<AuthContainer />} />
-      <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/dashboard" element={<DashboardContainer />} />
     </Routes>
   </Router>
 );

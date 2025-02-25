@@ -4,9 +4,9 @@ import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import AuthForm from './AuthForm';
 import { AuthFormData } from './types';
-import { loginUser, registerUser } from '../../../api/services/api'; 
+import { loginUser, registerUser } from '../../api/services/api'; 
 import axios from 'axios';
-import useSnackbar from '../../../hook/useSnackbar';
+import useSnackbar from '../../hook/useSnackbar';
 import { Alert, Snackbar } from '@mui/material';
 
 const AuthContainer: React.FC = () => {
@@ -61,7 +61,7 @@ const AuthContainer: React.FC = () => {
             if (isLogin) {
                 navigate('/dashboard');
             } else {
-                setIsLogin(true); // Switch to login after successful registration
+                setIsLogin(true); 
                 showSnackbar('Account created! Please log in.', 'info');
             }
         },
@@ -106,7 +106,7 @@ const AuthContainer: React.FC = () => {
             />
             <Snackbar
                 open={snackbar.open}
-                autoHideDuration={8000}
+                autoHideDuration={6000}
                 onClose={hideSnackbar}
                 anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
             >

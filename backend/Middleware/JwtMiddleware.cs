@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
@@ -7,10 +8,12 @@ namespace backend.Middleware
     public class JwtMiddleware
     {
         private readonly RequestDelegate _next;
+        private readonly ILogger<JwtMiddleware> _logger;
 
-        public JwtMiddleware(RequestDelegate next)
+        public JwtMiddleware(RequestDelegate next, ILogger<JwtMiddleware> logger)
         {
             _next = next;
+            _logger = logger;
         }
 
         public async Task Invoke(HttpContext context, IConfiguration configuration)
@@ -49,8 +52,9 @@ namespace backend.Middleware
                 var jwtToken = (JwtSecurityToken)validatedToken;
                 context.Items["User"] = jwtToken.Claims.First(x => x.Type == JwtRegisteredClaimNames.Sub).Value;
             }
-            catch
+            catch (Exception ex)
             {
+                _logger.LogError(ex, "Error validating JWT token");
                 // Do nothing if JWT validation fails
             }
         }

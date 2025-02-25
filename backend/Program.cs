@@ -11,6 +11,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Load configuration
 var configuration = builder.Configuration;
 
+// Configure logging
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+
 // Database Configuration
 builder.Services.AddDbContext<DataContext>(options =>
     options.UseSqlite(configuration.GetConnectionString("DefaultConnection")));

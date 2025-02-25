@@ -1,4 +1,3 @@
-using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
@@ -8,12 +7,10 @@ namespace backend.Middleware
     public class JwtMiddleware
     {
         private readonly RequestDelegate _next;
-        private readonly ILogger<JwtMiddleware> _logger;
 
-        public JwtMiddleware(RequestDelegate next, ILogger<JwtMiddleware> logger)
+        public JwtMiddleware(RequestDelegate next)
         {
             _next = next;
-            _logger = logger;
         }
 
         public async Task Invoke(HttpContext context, IConfiguration configuration)
@@ -44,17 +41,16 @@ namespace backend.Middleware
                     IssuerSigningKey = new SymmetricSecurityKey(key),
                     ValidateIssuer = true,
                     ValidateAudience = true,
-                    ValidIssuer = configuration["Jwt:Issuer"],
-                    ValidAudience = configuration["Jwt:Audience"],
+                    ValidIssuer = "bluegrass-digital-api",
+                    ValidAudience = "bluegrass-digital-users",
                     ClockSkew = TimeSpan.Zero
                 }, out SecurityToken validatedToken);
 
                 var jwtToken = (JwtSecurityToken)validatedToken;
-                context.Items["User"] = jwtToken.Claims.First(x => x.Type == JwtRegisteredClaimNames.Sub).Value;
+                context.Items["User"] = jwtToken.Claims.First(x => x.Type == "sub").Value;
             }
-            catch (Exception ex)
+            catch
             {
-                _logger.LogError(ex, "Error validating JWT token");
                 // Do nothing if JWT validation fails
             }
         }

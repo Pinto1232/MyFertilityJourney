@@ -9,13 +9,11 @@ import {
     Badge,
     Menu,
     MenuItem,
-    ListItemIcon,
     ListItemText,
     Divider
 } from '@mui/material';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { ChevronLeftOutlined } from '@mui/icons-material';
-import { Logout, Person } from '@mui/icons-material';
 import React, { useState } from 'react';
 import { BiChevronDown } from 'react-icons/bi';
 
@@ -79,8 +77,6 @@ const NavbarPresentational: React.FC<NavbarPresentationalProps> = ({
                         <ChevronLeftOutlined />
                     </IconButton>
                     <Typography variant="h6" noWrap sx={{ flexGrow: 1 }}>
-                        {/* Add your logo or title here */}
-
                     </Typography>
                     <Box display="flex" alignItems="center" gap={2}>
                         <IconButton onClick={onNotificationClick}>
@@ -105,8 +101,35 @@ const NavbarPresentational: React.FC<NavbarPresentationalProps> = ({
                                 alt={user.name}
                             >
                                 {user.name.split(' ').map(n => n[0]).join('')}
-                            </Avatar> <Typography variant="subtitle2" fontWeight={600} sx={{ display: 'flex', alignItems: 'center', gap: 2, justifyItems: 'center', backgroundColor: 'transparent' }}>
-                                {user.name} <BiChevronDown style={{ fontSize: 30, fontWeight: 500 }} />
+                            </Avatar>
+                            <Typography 
+                                variant="subtitle2" 
+                                fontWeight={600} 
+                                sx={{ 
+                                    display: 'flex', 
+                                    alignItems: 'center', 
+                                    gap: 2, 
+                                    justifyItems: 'center', 
+                                    color: '#414141', 
+                                    fontWeight: 600, 
+                                    fontSize: 14, 
+                                    lineHeight: '22px',
+                                    '&:hover': {
+                                        backgroundColor: 'transparent', 
+                                        boxShadow: 'none'
+                                    }
+                                }}
+                            >
+                                {user.name} 
+                                <BiChevronDown 
+                                    style={{ 
+                                        fontSize: 30, 
+                                        fontWeight: 500, 
+                                        color: '#67ADB9', 
+                                        transform: open ? 'rotate(180deg)' : 'rotate(0deg)', 
+                                        transition: 'transform 0.3s ease' 
+                                    }} 
+                                />
                             </Typography>
                         </IconButton>
 
@@ -140,7 +163,11 @@ const NavbarPresentational: React.FC<NavbarPresentationalProps> = ({
                             anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                         >
                             <Box sx={{ px: 2, py: 1.5 }}>
-                                <Typography variant="subtitle2" fontWeight={600}>
+                                <Typography variant="subtitle2" fontWeight={600} 
+                                sx={{
+                                   color: '#414141',
+                                   fontSize: 16,
+                                }}>
                                     {user.name}
                                 </Typography>
                                 <Typography variant="body2" color="text.secondary">
@@ -149,17 +176,36 @@ const NavbarPresentational: React.FC<NavbarPresentationalProps> = ({
 
                             <Divider sx={{ my: 1 }} />
 
-                            <MenuItem onClick={handleMenuClose}>
-                                <ListItemIcon sx={{ color: 'text.primary', minWidth: '36px' }}>
-                                    <Person fontSize="small" />
-                                </ListItemIcon>
+                            <MenuItem 
+                                onClick={handleMenuClose}
+                                sx={{
+                                    backgroundColor: '#9D9D9D14',
+                                    padding: '8px 16px',
+                                    margin: 1,
+                                    borderRadius: '8px',
+                                    fontSize: '12px',
+                                    lineHeight: '22px',
+                                    color: '#578388',
+                                    fontWeight: 500,
+                                    '&:hover': {
+                                        backgroundColor: '#9D9D9D28'
+                                    }
+                                }}
+                            >
                                 <ListItemText>Profile</ListItemText>
                             </MenuItem>
 
-                            <MenuItem onClick={handleMenuClose}>
-                                <ListItemIcon sx={{ color: 'text.primary', minWidth: '36px' }}>
-                                    <Logout fontSize="small" />
-                                </ListItemIcon>
+                            <Divider sx={{ my: 1 }} />
+
+                            <MenuItem 
+                                onClick={handleMenuClose}
+                                sx={{
+                                    fontSize: '12px',
+                                    lineHeight: '22px',
+                                    color: '#578388',
+                                    fontWeight: 500,
+                                }}
+                            >
                                 <ListItemText>Logout</ListItemText>
                             </MenuItem>
                         </Menu>

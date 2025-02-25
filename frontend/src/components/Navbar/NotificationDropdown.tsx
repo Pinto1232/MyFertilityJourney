@@ -200,11 +200,12 @@ const NotificationDropdown: React.FC<NotificationDropdownProps> = ({
                 <Box p={1.5} display="flex" justifyContent="center">
                     <Button
                         variant="text"
-                        color="primary"
                         sx={{
-                            fontWeight: 500,
-                            fontSize: '0.875rem',
                             textTransform: 'none',
+                            color: '#67ADB9',
+                            fontWeight: 600,
+                            fontSize: 14,
+                            lineHeight: '22px',
                             '&:hover': { bgcolor: 'transparent' }
                         }}
                         onClick={onClearAll}

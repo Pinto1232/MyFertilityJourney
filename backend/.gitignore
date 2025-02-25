@@ -1,7 +1,6 @@
 # Ignore build output directories
 bin/
 obj/
-.vs/
 
 # Ignore user-specific files
 .vscode/
@@ -14,7 +13,6 @@ obj/
 # Ignore IDE-specific files
 *.sln.ide
 .vscode/
-runtimes/
 
 # Ignore NuGet packages directory
 packages/
@@ -24,10 +22,7 @@ packages/
 *.log
 *.db
 *.sqlite
-*.dll, 
-*.pdb, 
-*.json, 
-*.cache
+
 # Ignore temporary files
 *.tmp
 *.temp
@@ -35,3 +30,4 @@ packages/
 # Ignore OS-specific files
 .DS_Store
 Thumbs.db
+.vs/

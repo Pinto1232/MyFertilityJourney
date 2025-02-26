@@ -26,7 +26,7 @@ import { useNotifications, Notification } from '../../context/NotificationContex
 
 const NotificationBox = styled(Box)(({ theme }) => ({
   position: 'fixed',
-  right: '166px',
+  right: '200px',
   top: '108px',
   width: '300px',
   maxHeight: '55vh',

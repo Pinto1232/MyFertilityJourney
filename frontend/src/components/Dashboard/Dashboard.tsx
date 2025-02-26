@@ -1,5 +1,8 @@
 import { Box, Typography } from '@mui/material';
 import React from 'react';
+import StatCardContainer from '../ui/StatCard/StatCardContainer';
+import DonutChartContainer from '../ui/DonutChart/DonutChartContainer';
+import PracticeTableContainer from '../ui/PracticeTable/PracticeTableContainer';
 
 interface DashboardPresentationalProps {
     isSidebarOpen: boolean;
@@ -21,9 +24,22 @@ const DashboardPresentational: React.FC<DashboardPresentationalProps> = ({
 
     const contentMap: { [key: string]: React.ReactNode } = {
         Dashboard: (
-            <Box sx={{ backgroundColor: '#FAFAFA', width: '100', height: '100%', padding: '30px', margin: '0', marginTop: '-15px' }}>
+            <Box
+                sx={{
+                    backgroundColor: '#FAFAFA',
+                    height: '100vh',
+                    padding: '10px',
+                    marginTop: '-15px',
+                    overflowY: 'auto',
+                    scrollbarWidth: 'none',
+                    msOverflowStyle: 'none',
+                    '&::-webkit-scrollbar': {
+                        display: 'none',
+                    },
+                }}
+            >
                 {userData && (
-                    <Box mt={2} sx={{ padding: '0 24px' }}>
+                    <Box mt={5} sx={{ padding: '0 24px' }}>
                         <Typography
                             variant="h4"
                             sx={{
@@ -48,14 +64,64 @@ const DashboardPresentational: React.FC<DashboardPresentationalProps> = ({
                             lineHeight: '22px',
                         }}
                     >
-                        Here is your profile information, including your email address and other details you have provided. Feel free to update your profile as needed.
+                        Here is your profile information, including your email address and other details you have provided.
                     </Typography>
+                </Box>
+                <Box sx={{ padding: '0 24px', mt: 4 }}>
+                    <StatCardContainer />
+                </Box>
+
+                <Box sx={{ padding: '24px 24px', mt: 4, boxShadow: '0px 4px 24px rgba(145, 158, 171, 0.2)', margin: 3, borderRadius: '16px' }}>
+                    <DonutChartContainer />
+                </Box>
+                <Box sx={{ padding: '0 24px', mb: 15 }}>
+                    <PracticeTableContainer />
                 </Box>
             </Box>
         ),
-        'My Profile': <Box sx={{ backgroundColor: '#FAFAFA', width: '100%', height: '100%', padding: '30px', margin: '0', marginTop: '-15px' }}>My Profile content</Box>,
-        'Manage Practices': <Box sx={{ backgroundColor: '#FAFAFA', width: '100%', height: '100%', padding: '30px', margin: '0', marginTop: '-15px' }}>Manage Practices content</Box>,
-        Logs: <Box sx={{ backgroundColor: '#FAFAFA', width: '100%', height: '100%', padding: '30px', margin: '0', marginTop: '-15px' }}>Logs content</Box>,
+        'My Profile': <Box sx={{
+            backgroundColor: '#FAFAFA',
+            height: '100vh',
+            padding: '10px',
+            overflowY: 'auto',
+            scrollbarWidth: 'none',
+            msOverflowStyle: 'none',
+            '&::-webkit-scrollbar': {
+                display: 'none',
+            },
+        }}
+        >
+            My Profile content
+        </Box>,
+        'Manage Practices': <Box sx={{
+            backgroundColor: '#FAFAFA',
+            height: '100vh',
+            padding: '10px',
+            overflowY: 'auto',
+            scrollbarWidth: 'none',
+            msOverflowStyle: 'none',
+            '&::-webkit-scrollbar': {
+                display: 'none',
+            },
+        }}
+        >
+            Manage Practices content
+        </Box>,
+        Logs: <Box
+            sx={{
+                backgroundColor: '#FAFAFA',
+                height: '100vh',
+                padding: '10px',
+                overflowY: 'auto',
+                scrollbarWidth: 'none',
+                msOverflowStyle: 'none',
+                '&::-webkit-scrollbar': {
+                    display: 'none',
+                },
+            }}
+        >
+            Logs content
+        </Box>,
     };
 
     return (

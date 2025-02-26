@@ -60,7 +60,7 @@ const SidebarPresentational: React.FC<SidebarPresentationalProps> = ({
           src="/assets/logo.jpg"
           alt="Logo"
           style={{
-            width: isOpen ? '215px' : '50%',
+            width: isOpen ? '190px' : '50%',
             margin: isOpen ? 10 :  8,
             maxWidth: '100%',
             height: 'auto'
@@ -98,7 +98,7 @@ const SidebarPresentational: React.FC<SidebarPresentationalProps> = ({
                   selectedMenuItem === item.text ? '#578388' : '#67ADB9'
               }}
             >
-              <Box sx={{ fontSize: 21 }}>{item.icon}</Box>
+              <Box sx={{ fontSize: 27 }}>{item.icon}</Box>
             </ListItemIcon>
             <ListItemText
               primary={item.text}

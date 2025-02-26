@@ -3,13 +3,21 @@ import React, { useState } from 'react';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
 import NavbarPresentational from './NavbarPresentational';
 import NotificationDropdown from './NotificationDropdown';
+import { useNavigate } from 'react-router-dom';
 
 interface NavbarContainerProps {
   toggleSidebar: () => void;
+  // Accept userData passed from DashboardContainer
+  userData?: {
+    email: string;
+    password: string;
+    confirmPassword?: string;
+  };
 }
 
-const NavbarContainer: React.FC<NavbarContainerProps> = ({ toggleSidebar }) => {
+const NavbarContainer: React.FC<NavbarContainerProps> = ({ toggleSidebar, userData }) => {
   const [showNotifications, setShowNotifications] = useState(false);
+  const navigate = useNavigate();
   const [notifications, setNotifications] = useState([
     {
       id: '1',
@@ -26,27 +34,42 @@ const NavbarContainer: React.FC<NavbarContainerProps> = ({ toggleSidebar }) => {
       unread: true,
     },
     {
-        id: '3',
-        title: 'New Constant Added',
-        user: 'Blake Robertson',
-        date: '07 Oct 2022',
-        unread: true,
-      },
+      id: '3',
+      title: 'New Constant Added',
+      user: 'Blake Robertson',
+      date: '07 Oct 2022',
+      unread: true,
+    },
   ]);
+
+  const handleLogout = () => {
+    navigate('/');
+  };
 
   const handleClearAll = () => {
     setNotifications(notifications.map(n => ({ ...n, unread: false })));
     setShowNotifications(false);
   };
 
+  // Convert userData (if provided) into the format expected by NavbarPresentational.
+  // If no userData is available, fall back to default values.
+  const user = userData
+    ? {
+        name: userData.email.split('@')[0],
+        avatar: '/assets/react.svg',
+        email: userData.email,
+      }
+    : { name: 'John Doe', avatar: '/assets/react.svg', email: 'john.doe@example.com' };
+
   return (
     <ClickAwayListener onClickAway={() => setShowNotifications(false)}>
       <div>
         <NavbarPresentational
           toggleSidebar={toggleSidebar}
-          user={{ name: 'John Doe', avatar: '/assets/react.svg', email: 'john.doe@example.com' }}
+          user={user}
           notificationsCount={notifications.filter(n => n.unread).length}
           onNotificationClick={() => setShowNotifications(!showNotifications)}
+          onLogout={handleLogout}
         />
         
         {showNotifications && (

@@ -20,7 +20,7 @@ import { CiClock2 } from 'react-icons/ci';
 
 const NotificationBox = styled(Box)(({ theme }) => ({
     position: 'fixed',
-    right: '182px',
+    right: '150px',
     top: '88px',
     width: '300px',
     maxHeight: '55vh',
@@ -138,7 +138,7 @@ const NotificationDropdown: React.FC<NotificationDropdownProps> = ({
                                             fontSize: '14px',
                                         }}
                                     >
-                                        {notification.user[0]} 
+                                        {notification.user[0]}
                                     </Avatar>
                                 </ListItemAvatar>
                                 <ListItemText
@@ -154,26 +154,31 @@ const NotificationDropdown: React.FC<NotificationDropdownProps> = ({
                                     }
                                     secondary={
                                         <>
-                                            <Typography
-                                                variant="body2"
-                                                color="#747474"
-                                                display="block"
-                                                fontWeight={400}
-                                                fontSize={14}
-                                                lineHeight={1.4}
-                                            >
-                                                {notification.user}
-                                            </Typography>
-                                            <Typography
-                                                variant="caption"
-                                                color="text.disabled"
-                                                display="block"
-                                                marginTop="4px"
-                                                justifyItems={'center'}
-                                                alignItems={'center'}
-                                            >
-                                               <CiClock2 /> {notification.date}
-                                            </Typography>
+                                            <ListItemText
+                                                primary={
+                                                    <Typography
+                                                        variant="body1"
+                                                        fontWeight={600}
+                                                        color="#414141"
+                                                        fontSize={14}
+                                                    >
+                                                        {notification.title}
+                                                    </Typography>
+                                                }
+                                                secondary={
+                                                    <>
+                                                        {/* Wrap with <span> instead of using Typography */}
+                                                        <span style={{ display: 'block', fontSize: '14px', color: '#747474', fontWeight: 400 }}>
+                                                            {notification.user}
+                                                        </span>
+                                                        <span style={{ display: 'block', fontSize: '12px', color: '#BCBCBC', marginTop: '4px', alignItems: 'center' }}>
+                                                            <CiClock2 style={{ verticalAlign: 'middle', marginRight: 4 }} /> {notification.date}
+                                                        </span>
+                                                    </>
+                                                }
+                                                sx={{ margin: 0 }}
+                                            />
+
                                         </>
                                     }
                                     sx={{ margin: 0 }}

@@ -1,4 +1,3 @@
-// NavbarContainer.tsx
 import React, { useState } from 'react';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
 import NavbarPresentational from './NavbarPresentational';
@@ -7,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 
 interface NavbarContainerProps {
   toggleSidebar: () => void;
-  // Accept userData passed from DashboardContainer
   userData?: {
     email: string;
     password: string;
@@ -51,8 +49,6 @@ const NavbarContainer: React.FC<NavbarContainerProps> = ({ toggleSidebar, userDa
     setShowNotifications(false);
   };
 
-  // Convert userData (if provided) into the format expected by NavbarPresentational.
-  // If no userData is available, fall back to default values.
   const user = userData
     ? {
         name: userData.email.split('@')[0],

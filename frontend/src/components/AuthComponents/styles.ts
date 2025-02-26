@@ -24,7 +24,7 @@ export const RightPanel = styled(Box)({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  backgroundColor: 'rgba(255, 255, 255, 0.5)', 
+  backgroundColor: 'rgba(114, 114, 114, 0.2)', 
 });
 
 export const AuthLayout = styled(Box)({

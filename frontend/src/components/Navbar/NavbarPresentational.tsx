@@ -19,6 +19,7 @@ import {
   
   const StyledAppBar = styled(AppBar)(({ theme }) => ({
     width: '100%',
+    height: '77px',
     zIndex: theme.zIndex.drawer + 1,
     boxShadow: 'none',
     borderBottom: `1px solid ${theme.palette.divider}`,
@@ -61,24 +62,17 @@ import {
     return (
       <StyledAppBar>
         <Toolbar
-          sx={{
-            paddingLeft: '0 !important',
-            paddingRight: '0 !important',
-            minHeight: '64px !important'
-          }}
         >
           <Box
             sx={{
               display: 'flex',
               width: '100%',
               alignItems: 'center',
-              px: 2
             }}
           >
             <IconButton edge="start" onClick={toggleSidebar} sx={{ mr: 2 }}>
               <ChevronLeftOutlined />
             </IconButton>
-            {/* Render a welcome message with the first letter of the user's name in capital letters */}
             <Typography variant="h6" noWrap sx={{ flexGrow: 1, textTransform: 'capitalize' }}>
              
             </Typography>

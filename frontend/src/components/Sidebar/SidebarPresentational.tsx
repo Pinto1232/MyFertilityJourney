@@ -25,7 +25,7 @@ const StyledDrawer = styled(Drawer)(({ theme, open }) => ({
   whiteSpace: 'nowrap',
   boxSizing: 'border-box',
   '& .MuiDrawer-paper': {
-    width: open ? 240 : theme.spacing(7),
+    width: open ? 248 : theme.spacing(7),
     overflowX: 'hidden',
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
@@ -53,14 +53,15 @@ const SidebarPresentational: React.FC<SidebarPresentationalProps> = ({
           py: isOpen ? 1 : 0,
           mt: isOpen ? -8 : 0,
           mb: isOpen ? 2 : 0,
-          ml: isOpen ? -10 : 0
+          ml: isOpen ? -1 : 0
         }}
       >
         <img
           src="/assets/logo.jpg"
           alt="Logo"
           style={{
-            width: isOpen ? '45%' : '50%',
+            width: isOpen ? '215px' : '50%',
+            margin: isOpen ? 10 :  8,
             maxWidth: '100%',
             height: 'auto'
           }}

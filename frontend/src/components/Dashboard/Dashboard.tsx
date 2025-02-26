@@ -1,5 +1,4 @@
-// DashboardPresentational.tsx
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import React from 'react';
 
 interface DashboardPresentationalProps {
@@ -8,8 +7,6 @@ interface DashboardPresentationalProps {
     selectedMenuItem: string;
     SidebarComponent: React.ReactNode;
     NavbarComponent: React.ReactNode;
-    // Add userData prop (using AuthFormData structure)
-    // userData prop structure extended to optionally include name
     userData?: { email: string; password: string; confirmPassword?: string; name?: string };
 }
 
@@ -24,23 +21,41 @@ const DashboardPresentational: React.FC<DashboardPresentationalProps> = ({
 
     const contentMap: { [key: string]: React.ReactNode } = {
         Dashboard: (
-            <Box>
+            <Box sx={{ backgroundColor: '#FAFAFA', width: '100', height: '100%', padding: '30px', margin: '0', marginTop: '-15px' }}>
                 {userData && (
-                    <Box mt={2}>
-                        <h2>
-                            Welcome,{' '}
+                    <Box mt={2} sx={{ padding: '0 24px' }}>
+                        <Typography
+                            variant="h4"
+                            sx={{
+                                fontWeight: 700,
+                                lineHeight: '30px',
+                                marginBottom: '20px',
+                            }}
+                        >
+                            Welcome{' '}
                             {userData.name
                                 ? capitalize(userData.name)
-                                : capitalize(userData.email.split('@')[0])}
-                        </h2>
-                        <pre>{JSON.stringify(userData, null, 2)}</pre>
+                                : capitalize(userData.email.split('@')[0])}!
+                        </Typography>
                     </Box>
                 )}
+                <Box sx={{ padding: '0 24px' }}>
+                    <Typography
+                        variant="body1"
+                        sx={{
+                            color: '#414141',
+                            fontWeight: 400,
+                            lineHeight: '22px',
+                        }}
+                    >
+                        Here is your profile information, including your email address and other details you have provided. Feel free to update your profile as needed.
+                    </Typography>
+                </Box>
             </Box>
         ),
-        'My Profile': <Box>My Profile content</Box>,
-        'Manage Practices': <Box>Manage Practices content</Box>,
-        Logs: <Box>Logs content</Box>,
+        'My Profile': <Box sx={{ backgroundColor: '#FAFAFA', width: '100%', height: '100%', padding: '30px', margin: '0', marginTop: '-15px' }}>My Profile content</Box>,
+        'Manage Practices': <Box sx={{ backgroundColor: '#FAFAFA', width: '100%', height: '100%', padding: '30px', margin: '0', marginTop: '-15px' }}>Manage Practices content</Box>,
+        Logs: <Box sx={{ backgroundColor: '#FAFAFA', width: '100%', height: '100%', padding: '30px', margin: '0', marginTop: '-15px' }}>Logs content</Box>,
     };
 
     return (
@@ -57,7 +72,7 @@ const DashboardPresentational: React.FC<DashboardPresentationalProps> = ({
                 }}
             >
                 {NavbarComponent}
-                <Box sx={{ flexGrow: 1, overflow: 'auto', p: 3 }}>
+                <Box sx={{ flexGrow: 1, }}>
                     {contentMap[selectedMenuItem] || <Box>No content available</Box>}
                 </Box>
             </Box>

@@ -26,8 +26,8 @@ import { useNotifications, Notification } from '../../context/NotificationContex
 
 const NotificationBox = styled(Box)(({ theme }) => ({
   position: 'fixed',
-  right: '200px',
-  top: '108px',
+  right: '160px',
+  top: '100px',
   width: '300px',
   maxHeight: '55vh',
   overflow: 'visible',
@@ -102,7 +102,7 @@ const NotificationDropdown: React.FC<NotificationDropdownProps> = ({ onClearAll 
             />
             <Box sx={{ flexGrow: 1 }}>
               <Box display="flex" alignItems="center" mb={1}>
-                <Typography variant="h6" fontWeight={600} sx={{ mr: 2 }}>
+                <Typography variant="body1" fontWeight={600} sx={{ mr: 2, fontSize: 16 }}>
                   Notifications
                 </Typography>
                 <Badge
@@ -118,9 +118,9 @@ const NotificationDropdown: React.FC<NotificationDropdownProps> = ({ onClearAll 
                 />
               </Box>
               <Typography
-                variant="body2"
-                color="text.secondary"
-                sx={{ fontSize: '0.875rem' }}
+                variant="h1"
+  
+                sx={{ fontSize: 14, color: '#414141' , }}
               >
                 You have {notifications.filter(n => n.unread).length} unread message
                 {notifications.filter(n => n.unread).length !== 1 && 's'}
@@ -220,9 +220,9 @@ const NotificationDropdown: React.FC<NotificationDropdownProps> = ({ onClearAll 
           }
         }}
       >
-        <DialogTitle sx={{ fontWeight: 600, fontSize: '1.25rem' }}>Delete Notification</DialogTitle>
+        <DialogTitle sx={{ fontWeight: 600, fontSize: 14 }}>Delete Notification</DialogTitle>
         <DialogContent>
-          <DialogContentText sx={{ fontSize: '1rem', color: '#333' }}>
+          <DialogContentText sx={{ fontSize: 12, color: '#333' }}>
             Are you sure you want to delete this notification?
           </DialogContentText>
         </DialogContent>

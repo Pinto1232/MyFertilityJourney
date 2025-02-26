@@ -103,13 +103,15 @@ const SidebarPresentational: React.FC<SidebarPresentationalProps> = ({
             <ListItemText
               primary={item.text}
               sx={{
+                fontWeight: selectedMenuItem === item.text ? 700 : 600,
+                font:   selectedMenuItem === item.text ? 'bold' : 'boldeer',
                 opacity: isOpen ? 1 : 0,
-                fontWeight: 600,
                 fontSize: '14px',
                 lineHeight: '22px',
                 letterSpacing: '0px',
                 color:
-                  selectedMenuItem === item.text ? '#578388' : '#414141'
+                  selectedMenuItem === item.text ? '#578388' : '#414141',
+                  
               }}
             />
           </ListItem>

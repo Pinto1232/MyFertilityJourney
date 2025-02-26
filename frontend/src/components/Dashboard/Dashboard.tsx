@@ -71,7 +71,15 @@ const DashboardPresentational: React.FC<DashboardPresentationalProps> = ({
                     <StatCardContainer />
                 </Box>
 
-                <Box sx={{ padding: '24px 24px', mt: 4, boxShadow: '0px 4px 24px rgba(145, 158, 171, 0.2)', margin: 3, borderRadius: '16px' }}>
+                <Box
+                    sx={{
+                        padding: '24px 24px',
+                        mt: 4, 
+                        boxShadow: '0px 4px 24px rgba(145, 158, 171, 0.2)',
+                        margin: 3,
+                        borderRadius: '16px'
+                    }}
+                >
                     <DonutChartContainer />
                 </Box>
                 <Box sx={{ padding: '0 24px', mb: 15 }}>

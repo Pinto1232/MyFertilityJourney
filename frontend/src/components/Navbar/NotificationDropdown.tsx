@@ -20,8 +20,8 @@ import { CiClock2 } from 'react-icons/ci';
 
 const NotificationBox = styled(Box)(({ theme }) => ({
     position: 'fixed',
-    right: '150px',
-    top: '88px',
+    right: '166px',
+    top: '108px',
     width: '300px',
     maxHeight: '55vh',
     overflow: 'visible',
@@ -90,7 +90,7 @@ const NotificationDropdown: React.FC<NotificationDropdownProps> = ({
 
                     <Box sx={{ flexGrow: 1 }}>
                         <Box display="flex" alignItems="center" mb={1}>
-                            <Typography variant="h6" fontWeight={600} sx={{ mr: 2 }}>
+                            <Typography  variant="body1" fontWeight={600} sx={{ mr: 2 }}>
                                 Notifications
                             </Typography>
                             <Badge
@@ -106,7 +106,7 @@ const NotificationDropdown: React.FC<NotificationDropdownProps> = ({
                             />
                         </Box>
                         <Typography
-                            variant="body2"
+                            variant="h4" 
                             color="text.secondary"
                             sx={{ fontSize: '0.875rem' }}
                         >
@@ -149,7 +149,7 @@ const NotificationDropdown: React.FC<NotificationDropdownProps> = ({
                                             color="#414141"
                                             fontSize={14}
                                         >
-                                            {notification.title}
+
                                         </Typography>
                                     }
                                     secondary={
@@ -157,7 +157,7 @@ const NotificationDropdown: React.FC<NotificationDropdownProps> = ({
                                             <ListItemText
                                                 primary={
                                                     <Typography
-                                                        variant="body1"
+                                                    variant="h4" 
                                                         fontWeight={600}
                                                         color="#414141"
                                                         fontSize={14}
@@ -167,7 +167,6 @@ const NotificationDropdown: React.FC<NotificationDropdownProps> = ({
                                                 }
                                                 secondary={
                                                     <>
-                                                        {/* Wrap with <span> instead of using Typography */}
                                                         <span style={{ display: 'block', fontSize: '14px', color: '#747474', fontWeight: 400 }}>
                                                             {notification.user}
                                                         </span>

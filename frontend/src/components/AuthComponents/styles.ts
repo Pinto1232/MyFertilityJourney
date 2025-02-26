@@ -5,6 +5,7 @@ export const PageContainer = styled(Box)({
   display: 'flex',
   height: '70vh',
   marginTop: '50px',	
+  margin: '130px'
 });
 
 export const LeftPanel = styled(Box)({

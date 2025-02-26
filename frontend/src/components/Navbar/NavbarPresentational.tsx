@@ -80,7 +80,15 @@ const NavbarPresentational: React.FC<NavbarPresentationalProps> = ({
                     </Typography>
                     <Box display="flex" alignItems="center" gap={2}>
                         <IconButton onClick={onNotificationClick}>
-                            <Badge badgeContent={notificationsCount} color="error">
+                            <Badge 
+                                badgeContent={notificationsCount} 
+                                color="error"
+                                sx={{
+                                    '& .MuiBadge-badge': {
+                                        backgroundColor: '#FF4842'
+                                    }
+                                }}
+                            >
                                 <NotificationsIcon sx={{ color: '#9D9D9D' }} />
                             </Badge>
                         </IconButton>

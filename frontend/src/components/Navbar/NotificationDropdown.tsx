@@ -138,7 +138,7 @@ const NotificationDropdown: React.FC<NotificationDropdownProps> = ({
                                             fontSize: '14px',
                                         }}
                                     >
-                                        {notification.user[0]}
+                                        {notification.user[0]} 
                                     </Avatar>
                                 </ListItemAvatar>
                                 <ListItemText

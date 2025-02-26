@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+// src/components/Navbar/NavbarContainer.tsx
+import React from 'react';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
 import NavbarPresentational from './NavbarPresentational';
 import NotificationDropdown from './NotificationDropdown';
+import { useNotifications } from '../../context/NotificationContext';
 import { useNavigate } from 'react-router-dom';
 
 interface NavbarContainerProps {
@@ -10,48 +12,24 @@ interface NavbarContainerProps {
     email: string;
     password: string;
     confirmPassword?: string;
+    name?: string;
   };
 }
 
 const NavbarContainer: React.FC<NavbarContainerProps> = ({ toggleSidebar, userData }) => {
-  const [showNotifications, setShowNotifications] = useState(false);
+  const [showNotifications, setShowNotifications] = React.useState(false);
+  const { unreadCount, clearNotifications } = useNotifications();
   const navigate = useNavigate();
-  const [notifications, setNotifications] = useState([
-    {
-      id: '1',
-      title: 'New Registration',
-      user: 'Alex Fredricks',
-      date: '07 Oct 2022',
-      unread: true,
-    },
-    {
-      id: '2',
-      title: 'New Constant Added',
-      user: 'Blake Robertson',
-      date: '07 Oct 2022',
-      unread: true,
-    },
-    {
-      id: '3',
-      title: 'New Constant Added',
-      user: 'Blake Robertson',
-      date: '07 Oct 2022',
-      unread: true,
-    },
-  ]);
 
-  const handleLogout = () => {
-    navigate('/');
-  };
 
   const handleClearAll = () => {
-    setNotifications(notifications.map(n => ({ ...n, unread: false })));
+    clearNotifications();
     setShowNotifications(false);
   };
 
   const user = userData
     ? {
-        name: userData.email.split('@')[0],
+        name: userData.name || userData.email.split('@')[0],
         avatar: '/assets/react.svg',
         email: userData.email,
       }
@@ -63,16 +41,16 @@ const NavbarContainer: React.FC<NavbarContainerProps> = ({ toggleSidebar, userDa
         <NavbarPresentational
           toggleSidebar={toggleSidebar}
           user={user}
-          notificationsCount={notifications.filter(n => n.unread).length}
+          notificationsCount={unreadCount}
           onNotificationClick={() => setShowNotifications(!showNotifications)}
-          onLogout={handleLogout}
+          onLogout={() => {
+            navigate('/');
+          }}
         />
-        
         {showNotifications && (
           <NotificationDropdown
-            notifications={notifications}
-            onClose={() => setShowNotifications(false)}
             onClearAll={handleClearAll}
+            onClose={() => setShowNotifications(false)}
           />
         )}
       </div>

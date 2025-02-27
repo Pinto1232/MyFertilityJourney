@@ -47,11 +47,45 @@ const AuthForm: React.FC<AuthFormProps> = ({ isLogin, formData, errors, onChange
                 <AuthLayout>
                     <Header>{isLogin ? 'Login to your account' : 'Create an account'}</Header>
                     <form onSubmit={onSubmit}>
+                        {!isLogin && (
+                            <>
+                                <ReusableTextField
+                                    label="Name"
+                                    variant="standard"
+                                    name="name"
+                                    labelFontSize="12px"
+                                    value={formData.name}
+                                    onChange={onChange}
+                                    error={!!errors.name}
+                                    helperText={errors.name}
+                                />
+                                <ReusableTextField
+                                    label="Phone Number"
+                                    variant="standard"
+                                    name="phoneNumber"
+                                    labelFontSize="12px"
+                                    value={formData.phoneNumber}
+                                    onChange={onChange}
+                                    error={!!errors.phoneNumber}
+                                    helperText={errors.phoneNumber}
+                                />
+                                <ReusableTextField
+                                    label="Address"
+                                    variant="standard"
+                                    name="address"
+                                    labelFontSize="12px"
+                                    value={formData.address}
+                                    onChange={onChange}
+                                    error={!!errors.address}
+                                    helperText={errors.address}
+                                />
+                            </>
+                        )}
                         <ReusableTextField
                             label="Email Address"
-                            variant='standard'
+                            variant="standard"
                             name="email"
-                            labelFontSize='12px'
+                            labelFontSize="12px"
                             value={formData.email}
                             onChange={onChange}
                             error={!!errors.email}
@@ -60,8 +94,8 @@ const AuthForm: React.FC<AuthFormProps> = ({ isLogin, formData, errors, onChange
                         <ReusableTextField
                             label="Password"
                             name="password"
-                            variant='standard'
-                            labelFontSize='12px'
+                            variant="standard"
+                            labelFontSize="12px"
                             value={formData.password}
                             onChange={onChange}
                             error={!!errors.password}
@@ -70,9 +104,9 @@ const AuthForm: React.FC<AuthFormProps> = ({ isLogin, formData, errors, onChange
                         {!isLogin && (
                             <ReusableTextField
                                 label="Confirm Password"
-                                variant='standard'
+                                variant="standard"
                                 name="confirmPassword"
-                                labelFontSize='12px'
+                                labelFontSize="12px"
                                 value={formData.confirmPassword || ''}
                                 onChange={onChange}
                                 error={!!errors.confirmPassword}

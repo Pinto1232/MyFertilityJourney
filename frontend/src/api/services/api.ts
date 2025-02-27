@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { Practice } from '../../components/ManagePractices/ManagePracticesTypes';
+import { UserProfile } from '../../components/Profile/ProfileTypes';
 
 interface AuthFormData {
   email: string;
@@ -107,6 +108,26 @@ export const fetchUserProfile = async () => {
     return response.data;
   } catch (error) {
     console.error('Error fetching user profile:', error);
+    throw error;
+  }
+};
+
+export const updateUserProfile = async (userProfile: UserProfile) => {
+  try {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      throw new Error('No token found');
+    }
+    const response = await axios.put(`${API_URL}/User/profile/${userProfile.id}`, userProfile, {
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    console.log('Updated User Profile:', response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Error updating user profile:', error);
     throw error;
   }
 };

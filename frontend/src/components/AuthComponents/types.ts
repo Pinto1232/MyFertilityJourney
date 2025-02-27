@@ -1,8 +1,12 @@
 export interface AuthFormData {
+  name: string;
   email: string;
   password: string;
   confirmPassword?: string;
+  phoneNumber: string;
+  address: string;
 }
+
 
 export interface AuthFormProps {
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;

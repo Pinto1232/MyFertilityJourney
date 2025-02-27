@@ -10,7 +10,7 @@ export const PageContainer = styled(Box)({
 
 export const LeftPanel = styled(Box)({
   width: '50%',
-  backgroundColor: '#001f54',
+  backgroundColor: '#212B36 ',
   color: '#fff',
   display: 'flex',
   flexDirection: 'column',

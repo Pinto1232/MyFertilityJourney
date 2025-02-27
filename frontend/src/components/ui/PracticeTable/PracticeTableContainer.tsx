@@ -59,13 +59,7 @@ const dummyRows: PracticeData[] = [
     dateCreated: '04/10/2021',
     status: 'Disabled',
   },
-  {
-    name: 'Cape Fertility Clinic 6',
-    telNo: '+27 794 3956',
-    email: 'info@capefertility.co.za',
-    dateCreated: '04/10/2021',
-    status: 'Disabled',
-  },
+  
 ];
 
 const PracticeTableContainer: React.FC = () => {

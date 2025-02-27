@@ -35,7 +35,15 @@ const PracticeTablePresentational: React.FC<PracticeTablePresentationalProps> = 
   return (
     <TableContainerWrapper>
       {/* Title */}
-      <Typography variant="h4" sx={{ mb: 2, fontWeight: 700, ml: 1, fontSize: 18 }}>
+      <Typography 
+          variant="h4" 
+          sx={{ 
+            mb: 2, 
+            fontWeight: 700, 
+            ml: 1, 
+            fontSize: 18 
+            }}
+        >
         {title}
       </Typography>
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Table,
   TableHead,
@@ -9,16 +9,21 @@ import {
   Box,
   Typography,
   Switch,
-  TablePagination, 
+  TablePagination,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Button,
 } from '@mui/material';
 import { RiEditLine } from "react-icons/ri";
+import { FaRegTrashAlt } from 'react-icons/fa';
 import {
   TableContainerWrapper,
   StyledTableRow,
   ActionsContainer,
 } from './PracticeTable.styles';
-import { PracticeTablePresentationalProps } from './PracticeTable.types';
-import { FaRegTrashAlt } from 'react-icons/fa';
+import { PracticeTablePresentationalProps, PracticeData } from './PracticeTable.types';
 
 const PracticeTablePresentational: React.FC<PracticeTablePresentationalProps> = ({
   title,
@@ -26,30 +31,51 @@ const PracticeTablePresentational: React.FC<PracticeTablePresentationalProps> = 
   onEdit,
   onDelete,
   onToggleStatus,
-  totalCount,          
-  page,               
-  rowsPerPage,         
-  onPageChange,        
-  onRowsPerPageChange, 
+  totalCount,
+  page,
+  rowsPerPage,
+  onPageChange,
+  onRowsPerPageChange,
 }) => {
+  // State for dialog control
+  const [openDialog, setOpenDialog] = useState(false);
+  const [selectedRow, setSelectedRow] = useState<PracticeData | null>(null);
+
+  const handleOpenDialog = (row: PracticeData) => {
+    setSelectedRow(row);
+    setOpenDialog(true);
+  };
+
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
+    setSelectedRow(null);
+  };
+
+  const handleConfirmDelete = () => {
+    if (selectedRow) {
+      onDelete(selectedRow);
+    }
+    handleCloseDialog();
+  };
+
   return (
     <TableContainerWrapper>
       {/* Title */}
-      <Typography 
-          variant="h4" 
-          sx={{ 
-            mb: 2, 
-            fontWeight: 700, 
-            ml: 1, 
-            fontSize: 18 
-            }}
-        >
+      <Typography
+        variant="h4"
+        sx={{
+          mb: 2,
+          fontWeight: 700,
+          ml: 1,
+          fontSize: 18,
+        }}
+      >
         {title}
       </Typography>
 
       <Table>
         <TableHead>
-          <TableRow sx={{ backgroundColor: '#F5F5F5',  borderRadius: 20 }}>
+          <TableRow sx={{ backgroundColor: '#F5F5F5', borderRadius: 20 }}>
             <TableCell sx={{ fontWeight: 600 }}>Practise Name</TableCell>
             <TableCell sx={{ fontWeight: 600 }}>Tel No</TableCell>
             <TableCell sx={{ fontWeight: 600 }}>Email</TableCell>
@@ -82,20 +108,17 @@ const PracticeTablePresentational: React.FC<PracticeTablePresentationalProps> = 
                         },
                       }}
                     />
-                    <Typography variant="body1" >
-                      {row.status}
-                    </Typography>
+                    <Typography variant="body1">{row.status}</Typography>
                   </Box>
                 </TableCell>
 
                 <TableCell>
                   <ActionsContainer>
-                    <IconButton
-                     onClick={() => onEdit(row)}>
+                    <IconButton onClick={() => onEdit(row)}>
                       <RiEditLine color="#67ADB9" />
                     </IconButton>
-                    <IconButton onClick={() => onDelete(row)}>
-                      <FaRegTrashAlt  color="#67ADB9" />
+                    <IconButton onClick={() => handleOpenDialog(row)}>
+                      <FaRegTrashAlt color="#67ADB9" />
                     </IconButton>
                   </ActionsContainer>
                 </TableCell>
@@ -111,10 +134,26 @@ const PracticeTablePresentational: React.FC<PracticeTablePresentationalProps> = 
         page={page}
         onPageChange={(_, newPage) => onPageChange(newPage)}
         rowsPerPage={rowsPerPage}
-        onRowsPerPageChange={(event) =>
-          onRowsPerPageChange(parseInt(event.target.value, 10))
-        }
+        onRowsPerPageChange={(event) => onRowsPerPageChange(parseInt(event.target.value, 10))}
       />
+
+      {/* Delete Confirmation Dialog */}
+      <Dialog open={openDialog} onClose={handleCloseDialog}>
+        <DialogTitle>Confirm Deletion</DialogTitle>
+        <DialogContent>
+          <Typography>
+            Are you sure you want to delete "{selectedRow?.name}"?
+          </Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseDialog} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleConfirmDelete} color="error">
+            Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
     </TableContainerWrapper>
   );
 };

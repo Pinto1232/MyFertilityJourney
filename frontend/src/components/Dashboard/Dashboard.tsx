@@ -5,6 +5,7 @@ import DonutChartContainer from '../ui/DonutChart/DonutChartContainer';
 import PracticeTableContainer from '../ui/PracticeTable/PracticeTableContainer';
 import ManagePracticesContainer from '../ManagePractices/ManagePracticesContainer';
 import ProfileContainer from '../Profile/ProfileContainer';
+import LogsContainer from '../Logs/LogsContainer'; // Import LogsContainer
 
 interface DashboardPresentationalProps {
     isSidebarOpen: boolean;
@@ -104,21 +105,23 @@ const DashboardPresentational: React.FC<DashboardPresentationalProps> = ({
             <ProfileContainer/>
         </Box>,
         'Manage Practices': <ManagePracticesContainer />,
-        Logs: <Box
-            sx={{
-                backgroundColor: '#FAFAFA',
-                height: '100vh',
-                padding: '10px',
-                overflowY: 'auto',
-                scrollbarWidth: 'none',
-                msOverflowStyle: 'none',
-                '&::-webkit-scrollbar': {
-                    display: '',
-                },
-            }}
-        >
-            Logs content
-        </Box>,
+        Logs: (
+            <Box
+                sx={{
+                    backgroundColor: '#FAFAFA',
+                    height: '100vh',
+                    padding: '10px',
+                    overflowY: 'auto',
+                    scrollbarWidth: 'none',
+                    msOverflowStyle: 'none',
+                    '&::-webkit-scrollbar': {
+                        display: 'none',
+                    },
+                }}
+            >
+                <LogsContainer />
+            </Box>
+        ),
     };
 
     return (

@@ -124,7 +124,7 @@ const DashboardPresentational: React.FC<DashboardPresentationalProps> = ({
                 scrollbarWidth: 'none',
                 msOverflowStyle: 'none',
                 '&::-webkit-scrollbar': {
-                    display: 'none',
+                    display: '',
                 },
             }}
         >

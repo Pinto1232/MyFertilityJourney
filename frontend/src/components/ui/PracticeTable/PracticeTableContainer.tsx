@@ -1,75 +1,44 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PracticeTablePresentational from './PracticeTablePresentational';
-import { PracticeData } from './PracticeTable.types';
-
-const dummyRows: PracticeData[] = [
-  {
-    name: 'Cape Fertility Clinic 1',
-    telNo: '+27 794 3956',
-    email: 'info@capefertility.co.za',
-    dateCreated: '04/10/2021',
-    status: 'Active',
-  },
-  {
-    name: 'Cape Fertility Clinic 2',
-    telNo: '+27 794 3956',
-    email: 'info@capefertility.co.za',
-    dateCreated: '04/10/2021',
-    status: 'Active',
-  },
-  {
-    name: 'Cape Fertility Clinic 3',
-    telNo: '+27 794 3956',
-    email: 'info@capefertility.co.za',
-    dateCreated: '04/10/2021',
-    status: 'Disabled',
-  },
-  {
-    name: 'Cape Fertility Clinic 4',
-    telNo: '+27 794 3956',
-    email: 'info@capefertility.co.za',
-    dateCreated: '04/10/2021',
-    status: 'Disabled',
-  },
-  {
-    name: 'Cape Fertility Clinic 5',
-    telNo: '+27 794 3956',
-    email: 'info@capefertility.co.za',
-    dateCreated: '04/10/2021',
-    status: 'Disabled',
-  },
-  {
-    name: 'Cape Fertility Clinic 6',
-    telNo: '+27 794 3956',
-    email: 'info@capefertility.co.za',
-    dateCreated: '04/10/2021',
-    status: 'Disabled',
-  },
-  {
-    name: 'Cape Fertility Clinic 6',
-    telNo: '+27 794 3956',
-    email: 'info@capefertility.co.za',
-    dateCreated: '04/10/2021',
-    status: 'Disabled',
-  },
-  {
-    name: 'Cape Fertility Clinic 6',
-    telNo: '+27 794 3956',
-    email: 'info@capefertility.co.za',
-    dateCreated: '04/10/2021',
-    status: 'Disabled',
-  },
-  
-];
+import EditPracticeModal from './EditPracticeModal';
+import { PracticeData, PracticeApiData } from './PracticeTable.types';
+import { fetchPractices } from '../../../api/services/api';
 
 const PracticeTableContainer: React.FC = () => {
-  const [rows, setRows] = useState<PracticeData[]>(dummyRows);
+  const [rows, setRows] = useState<PracticeData[]>([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [editRow, setEditRow] = useState<PracticeData | null>(null);
+
+  useEffect(() => {
+    const getPractices = async () => {
+      try {
+        const practices: PracticeApiData[] = await fetchPractices();
+        console.log('Fetched Practices In practice table container:', practices);
+        const mappedPractices: PracticeData[] = practices.map((practice) => ({
+          name: practice.name,
+          telNo: practice.phoneNumber,
+          email: practice.email,
+          dateCreated: new Date(practice.createdAt).toLocaleDateString(),
+          status: practice.status === 'active' ? 'Active' : 'Disabled',
+        }));
+        setRows(mappedPractices);
+      } catch (error) {
+        console.error('Error fetching practices:', error);
+      }
+    };
+
+    getPractices();
+  }, []);
 
   // Handlers for table actions
   const handleEdit = (row: PracticeData) => {
-    console.log('Edit clicked for:', row.name);
+    setEditRow(row);
+  };
+
+  const handleSaveEdit = (updatedPractice: PracticeData) => {
+    setRows((prev) => prev.map((r) => (r === editRow ? updatedPractice : r)));
+    setEditRow(null);
   };
 
   const handleDelete = (row: PracticeData) => {
@@ -101,25 +70,32 @@ const PracticeTableContainer: React.FC = () => {
     setPage(0);
   };
 
-  // Compute current rows
   const startIndex = page * rowsPerPage;
   const endIndex = startIndex + rowsPerPage;
   const currentRows = rows.slice(startIndex, endIndex);
 
   return (
-    <PracticeTablePresentational
-      title="Newest Practises"
-      rows={currentRows}
-      totalCount={rows.length}
-      page={page}
-      rowsPerPage={rowsPerPage}
-      onPageChange={handlePageChange}
-      onRowsPerPageChange={handleRowsPerPageChange}
-      onEdit={handleEdit}
-      onDelete={handleDelete}
-      onSeeAll={handleSeeAll}
-      onToggleStatus={handleToggleStatus}
-    />
+    <>
+      <PracticeTablePresentational
+        title="Newest Practises"
+        rows={currentRows}
+        totalCount={rows.length}
+        page={page}
+        rowsPerPage={rowsPerPage}
+        onPageChange={handlePageChange}
+        onRowsPerPageChange={handleRowsPerPageChange}
+        onEdit={handleEdit}
+        onDelete={handleDelete}
+        onSeeAll={handleSeeAll}
+        onToggleStatus={handleToggleStatus}
+      />
+      <EditPracticeModal
+        open={Boolean(editRow)}
+        practice={editRow}
+        onSave={handleSaveEdit}
+        onClose={() => setEditRow(null)}
+      />
+    </>
   );
 };
 

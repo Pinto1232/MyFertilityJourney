@@ -3,6 +3,7 @@ import React from 'react';
 import StatCardContainer from '../ui/StatCard/StatCardContainer';
 import DonutChartContainer from '../ui/DonutChart/DonutChartContainer';
 import PracticeTableContainer from '../ui/PracticeTable/PracticeTableContainer';
+import ManagePracticesContainer from '../ManagePractices/ManagePracticesContainer';
 
 interface DashboardPresentationalProps {
     isSidebarOpen: boolean;
@@ -101,20 +102,7 @@ const DashboardPresentational: React.FC<DashboardPresentationalProps> = ({
         >
             My Profile content
         </Box>,
-        'Manage Practices': <Box sx={{
-            backgroundColor: '#FAFAFA',
-            height: '100vh',
-            padding: '10px',
-            overflowY: 'auto',
-            scrollbarWidth: 'none',
-            msOverflowStyle: 'none',
-            '&::-webkit-scrollbar': {
-                display: 'none',
-            },
-        }}
-        >
-            Manage Practices content
-        </Box>,
+        'Manage Practices': <ManagePracticesContainer />,
         Logs: <Box
             sx={{
                 backgroundColor: '#FAFAFA',

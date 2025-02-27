@@ -1,4 +1,3 @@
-// src/components/Navbar/NotificationDropdown.tsx
 import React, { useState } from 'react';
 import {
   Paper,
@@ -12,17 +11,13 @@ import {
   Badge,
   Divider,
   Box,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import CloseIcon from '@mui/icons-material/Close';
 import { HiOutlineTrash } from 'react-icons/hi';
 import { CiClock2 } from 'react-icons/ci';
 import { useNotifications, Notification } from '../../context/NotificationContext';
+import ConfirmationDialogPresentational from '../ui/ConfirmationDialog/ConfirmationDialogPresentational';
 
 const NotificationBox = styled(Box)(({ theme }) => ({
   position: 'fixed',
@@ -209,32 +204,15 @@ const NotificationDropdown: React.FC<NotificationDropdownProps> = ({ onClearAll 
           </Box>
         </NotificationBox>
       </Paper>
-      <Dialog
+      <ConfirmationDialogPresentational
         open={openDialog}
-        onClose={handleCloseDialog}
-        PaperProps={{
-          sx: {
-            borderRadius: '12px',
-            padding: '16px',
-            backgroundColor: '#f5f5f5',
-          }
-        }}
-      >
-        <DialogTitle sx={{ fontWeight: 600, fontSize: 14 }}>Delete Notification</DialogTitle>
-        <DialogContent>
-          <DialogContentText sx={{ fontSize: 12, color: '#333' }}>
-            Are you sure you want to delete this notification?
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseDialog} sx={{ color: '#67ADB9', fontWeight: 600 }}>
-            No
-          </Button>
-          <Button onClick={handleConfirmDelete} sx={{ color: '#d32f2f', fontWeight: 600 }} autoFocus>
-            Yes
-          </Button>
-        </DialogActions>
-      </Dialog>
+        title="Delete Notification"
+        message="Are you sure you want to delete this notification?"
+        confirmText="Yes"
+        cancelText="No"
+        onConfirm={handleConfirmDelete}
+        onCancel={handleCloseDialog}
+      />
     </>
   );
 };

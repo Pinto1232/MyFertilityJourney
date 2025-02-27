@@ -10,11 +10,6 @@ import {
   Typography,
   Switch,
   TablePagination,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  Button,
 } from '@mui/material';
 import { RiEditLine } from "react-icons/ri";
 import { FaRegTrashAlt } from 'react-icons/fa';
@@ -24,6 +19,7 @@ import {
   ActionsContainer,
 } from './PracticeTable.styles';
 import { PracticeTablePresentationalProps, PracticeData } from './PracticeTable.types';
+import ConfirmationDialogContainer from '../../ui/ConfirmationDialog/ConfirmationDialogContainer';
 
 const PracticeTablePresentational: React.FC<PracticeTablePresentationalProps> = ({
   title,
@@ -37,30 +33,29 @@ const PracticeTablePresentational: React.FC<PracticeTablePresentationalProps> = 
   onPageChange,
   onRowsPerPageChange,
 }) => {
-  // State for dialog control
-  const [openDialog, setOpenDialog] = useState(false);
   const [selectedRow, setSelectedRow] = useState<PracticeData | null>(null);
+  const [dialogOpen, setDialogOpen] = useState(false);
 
   const handleOpenDialog = (row: PracticeData) => {
     setSelectedRow(row);
-    setOpenDialog(true);
-  };
-
-  const handleCloseDialog = () => {
-    setOpenDialog(false);
-    setSelectedRow(null);
+    setDialogOpen(true);
   };
 
   const handleConfirmDelete = () => {
     if (selectedRow) {
       onDelete(selectedRow);
     }
-    handleCloseDialog();
+    setSelectedRow(null);
+    setDialogOpen(false);
+  };
+
+  const handleCloseDialog = () => {
+    setSelectedRow(null);
+    setDialogOpen(false);
   };
 
   return (
     <TableContainerWrapper>
-      {/* Title */}
       <Typography
         variant="h4"
         sx={{
@@ -137,23 +132,20 @@ const PracticeTablePresentational: React.FC<PracticeTablePresentationalProps> = 
         onRowsPerPageChange={(event) => onRowsPerPageChange(parseInt(event.target.value, 10))}
       />
 
-      {/* Delete Confirmation Dialog */}
-      <Dialog open={openDialog} onClose={handleCloseDialog}>
-        <DialogTitle>Confirm Deletion</DialogTitle>
-        <DialogContent>
-          <Typography>
-            Are you sure you want to delete "{selectedRow?.name}"?
-          </Typography>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseDialog} color="primary">
-            Cancel
-          </Button>
-          <Button onClick={handleConfirmDelete} color="error">
-            Delete
-          </Button>
-        </DialogActions>
-      </Dialog>
+      <ConfirmationDialogContainer
+        open={dialogOpen}
+        title="Confirm Deletion"
+        message={selectedRow ? (
+          <>
+            Are you sure you want to delete <span style={{ color: 'red', fontWeight: '600' }}>
+              {selectedRow.name}</span>?
+          </>
+        ) : ''}
+        confirmText="Delete"
+        cancelText="Cancel"
+        onConfirm={handleConfirmDelete}
+        onCancel={handleCloseDialog}
+      />
     </TableContainerWrapper>
   );
 };

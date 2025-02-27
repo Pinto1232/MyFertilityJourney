@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { Practice } from '../../components/ManagePractices/ManagePracticesTypes';
 
 interface AuthFormData {
   email: string;
@@ -103,6 +104,42 @@ export const fetchUserProfile = async () => {
     return response.data;
   } catch (error) {
     console.error('Error fetching user profile:', error);
+    throw error;
+  }
+};
+
+// Save Practice function
+export const savePractice = async (practice: Practice) => {
+  try {
+    const token = localStorage.getItem('token');
+    const response = await axios.post(`${API_URL}/Practice`, practice, {
+      headers: {
+        Accept: 'application/json',
+        Authorization: token ? `Bearer ${token}` : '',
+      },
+    });
+    console.log('Saved Practice to database:', response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Error saving practice:', error);
+    throw error;
+  }
+};
+
+// Update Practice function
+export const updatePractice = async (practice: Practice) => {
+  try {
+    const token = localStorage.getItem('token');
+    const response = await axios.put(`${API_URL}/Practice/${practice.id}`, practice, {
+      headers: {
+        Accept: 'application/json',
+        Authorization: token ? `Bearer ${token}` : '',
+      },
+    });
+    console.log('Updated Practice in database:', response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Error updating practice:', error);
     throw error;
   }
 };

@@ -4,6 +4,7 @@ import StatCardContainer from '../ui/StatCard/StatCardContainer';
 import DonutChartContainer from '../ui/DonutChart/DonutChartContainer';
 import PracticeTableContainer from '../ui/PracticeTable/PracticeTableContainer';
 import ManagePracticesContainer from '../ManagePractices/ManagePracticesContainer';
+import ProfileContainer from '../Profile/ProfileContainer';
 
 interface DashboardPresentationalProps {
     isSidebarOpen: boolean;
@@ -100,7 +101,7 @@ const DashboardPresentational: React.FC<DashboardPresentationalProps> = ({
             },
         }}
         >
-            My Profile content
+            <ProfileContainer/>
         </Box>,
         'Manage Practices': <ManagePracticesContainer />,
         Logs: <Box

@@ -21,7 +21,7 @@ import ConfirmationDialogPresentational from '../ui/ConfirmationDialog/Confirmat
 
 const NotificationBox = styled(Box)(({ theme }) => ({
   position: 'fixed',
-  right: '160px',
+  right: '193px',
   top: '100px',
   width: '300px',
   maxHeight: '55vh',
@@ -88,11 +88,7 @@ const NotificationDropdown: React.FC<NotificationDropdownProps> = ({ onClearAll 
                 backgroundColor: '#ffffff',
                 width: '20px',
                 height: '20px',
-                padding: '4px',
-                '&:hover': {
-                  backgroundColor: theme.palette.error.dark,
-                  transform: 'translate(40%, -40%) scale(1.1)'
-                }
+                padding: '4px',               
               })}
             />
             <Box sx={{ flexGrow: 1 }}>
@@ -167,9 +163,9 @@ const NotificationDropdown: React.FC<NotificationDropdownProps> = ({ onClearAll 
                   {notification.unread && (
                     <HiOutlineTrash
                       style={{
-                        width: '16.67px',
-                        height: '16.67px',
-                        color: '#BCBCBC',
+                        width: '20.67px',
+                        height: '20.67px',
+                        color: '#67ADB9 ',
                         borderRadius: '50%',
                         backgroundColor: 'primary.main',
                         marginLeft: 1,

@@ -3,26 +3,30 @@ import ManagePracticesPresentational from './ManagePracticesPresentational';
 import ManagePracticesModal from './ManagePracticesModal';
 import { fetchPractices, savePractice, updatePractice } from '../../api/services/api';
 import { Practice } from './ManagePracticesTypes';
+import { Snackbar, Alert } from '@mui/material';
 
 const ManagePracticesContainer: React.FC = () => {
     const [practices, setPractices] = useState<Practice[]>([]);
     const [modalOpen, setModalOpen] = useState(false);
     const [currentPractice, setCurrentPractice] = useState<Practice | undefined>(undefined);
     const [categories, setCategories] = useState<string[]>([]);
+    const [snackbarOpen, setSnackbarOpen] = useState(false);
+    const [snackbarMessage, setSnackbarMessage] = useState('');
+    const [snackbarSeverity, setSnackbarSeverity] = useState<'success' | 'error'>('success');
+
+    const getPractices = async () => {
+        try {
+            const response = await fetchPractices();
+            console.log('Fetched Practices data on Manage practice:', response);
+            setPractices(response);
+            const uniqueCategories: string[] = Array.from(new Set(response.map((practice: Practice) => practice.category)));
+            setCategories(uniqueCategories);
+        } catch (error) {
+            console.error('Error fetching practices:', error);
+        }
+    };
 
     useEffect(() => {
-        const getPractices = async () => {
-            try {
-                const response = await fetchPractices();
-                console.log('Fetched Practices data on Manage practice:', response);
-                setPractices(response);
-                const uniqueCategories: string[] = Array.from(new Set(response.map((practice: Practice) => practice.category)));
-                setCategories(uniqueCategories);
-            } catch (error) {
-                console.error('Error fetching practices:', error);
-            }
-        };
-
         getPractices();
     }, []);
 
@@ -39,16 +43,20 @@ const ManagePracticesContainer: React.FC = () => {
     const handleSavePractice = async (practice: Practice) => {
         console.log('Saved Practice:', practice);
         try {
-            let savedPractice: Practice;
             if (practice.id === 0) {
-                savedPractice = await savePractice(practice);
-                setPractices([...practices, savedPractice]);
+                await savePractice(practice);
             } else {
-                savedPractice = await updatePractice(practice);
-                setPractices(practices.map(p => (p.id === practice.id ? savedPractice : p)));
+                await updatePractice(practice);
             }
+            await getPractices();
+            setSnackbarMessage('Practice saved successfully!');
+            setSnackbarSeverity('success');
         } catch (error) {
             console.error('Error saving practice:', error);
+            setSnackbarMessage('Error saving practice.');
+            setSnackbarSeverity('error');
+        } finally {
+            setSnackbarOpen(true);
         }
     };
 
@@ -60,6 +68,10 @@ const ManagePracticesContainer: React.FC = () => {
         setPractices(practices.map(practice =>
             practice.id === id ? { ...practice, status: practice.status === 'active' ? 'inactive' : 'active' } : practice
         ));
+    };
+
+    const handleSnackbarClose = () => {
+        setSnackbarOpen(false);
     };
 
     return (
@@ -78,6 +90,15 @@ const ManagePracticesContainer: React.FC = () => {
                 practice={currentPractice}
                 categories={categories}
             />
+            <Snackbar
+                open={snackbarOpen}
+                autoHideDuration={6000}
+                onClose={handleSnackbarClose}
+            >
+                <Alert onClose={handleSnackbarClose} severity={snackbarSeverity} sx={{ width: '100%' }}>
+                    {snackbarMessage}
+                </Alert>
+            </Snackbar>
         </>
     );
 };

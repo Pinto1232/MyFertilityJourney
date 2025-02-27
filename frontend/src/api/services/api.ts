@@ -94,13 +94,16 @@ export const fetchPractices = async () => {
 export const fetchUserProfile = async () => {
   try {
     const token = localStorage.getItem('token');
+    if (!token) {
+      throw new Error('No token found');
+    }
     const response = await axios.get(`${API_URL}/User/profile`, {
       headers: {
         Accept: 'application/json',
-        Authorization: token ? `Bearer ${token}` : '',
+        Authorization: `Bearer ${token}`,
       },
     });
-    console.log('Fetched Profile:', response.data);
+    console.log('Fetched User Profile:', response.data);
     return response.data;
   } catch (error) {
     console.error('Error fetching user profile:', error);

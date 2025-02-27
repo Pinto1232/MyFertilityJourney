@@ -48,5 +48,40 @@ namespace backend.Controllers
             // Ensure the correct action is referenced by specifying GetPractice in this controller.
             return CreatedAtAction(nameof(GetPractice), new { id = practice.Id }, practice);
         }
+        // PUT: api/practice/{id}
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdatePractice(int id, Practice practice)
+        {
+            if (id != practice.Id)
+                return BadRequest("ID mismatch.");
+
+            var existingPractice = await _context.Practices.FindAsync(id);
+            if (existingPractice == null)
+                return NotFound();
+
+            // Update properties as needed. For example:
+            existingPractice.Name = practice.Name;
+            existingPractice.Description = practice.Description;
+            existingPractice.Category = practice.Category;
+            existingPractice.Status = practice.Status;
+            existingPractice.OwnerId = practice.OwnerId;
+            existingPractice.OwnerName = practice.OwnerName;
+            existingPractice.PhoneNumber = practice.PhoneNumber;
+            existingPractice.Email = practice.Email;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!_context.Practices.Any(e => e.Id == id))
+                    return NotFound();
+                throw;
+            }
+
+            return NoContent();
+        }
+
     }
 }

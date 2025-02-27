@@ -30,6 +30,9 @@ namespace backend.Controllers
             if (await _context.Users.AnyAsync(u => u.Email == user.Email))
                 return BadRequest(new { message = "Email is already taken" });
 
+            // Ensure the Id is not set manually
+            user.Id = 0;
+
             // Hash the password before saving
             user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
             _context.Users.Add(user);
@@ -56,15 +59,54 @@ namespace backend.Controllers
         // GET: api/user/profile
         [HttpGet("profile")]
         [Authorize]
-        public IActionResult GetUserProfile()
+        public async Task<IActionResult> GetUserProfile()
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var email = User.FindFirst(ClaimTypes.Email)?.Value;
-
-            if (userId == null || email == null)
+            if (userId == null)
                 return Unauthorized(new { message = "Invalid token claims" });
 
-            return Ok(new { userId, email, message = "Profile data" });
+            var user = await _context.Users.FindAsync(int.Parse(userId));
+            if (user == null)
+                return NotFound(new { message = "User not found" });
+
+            return Ok(new 
+            { 
+                user.Id, 
+                user.Email, 
+                user.Name, 
+                user.PhoneNumber, 
+                user.Address 
+            });
+        }
+
+        // PUT: api/user/profile/{id}
+        [HttpPut("profile/{id}")]
+        [Authorize]
+        public async Task<IActionResult> UpdateUserProfile(int id, User updatedUser)
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (userId == null || id != int.Parse(userId))
+                return Unauthorized(new { message = "Invalid token claims or user ID mismatch" });
+
+            var user = await _context.Users.FindAsync(id);
+            if (user == null)
+                return NotFound(new { message = "User not found" });
+
+            user.Name = updatedUser.Name;
+            user.PhoneNumber = updatedUser.PhoneNumber;
+            user.Address = updatedUser.Address;
+
+            _context.Users.Update(user);
+            await _context.SaveChangesAsync();
+
+            return Ok(new 
+            { 
+                user.Id, 
+                user.Email, 
+                user.Name, 
+                user.PhoneNumber, 
+                user.Address 
+            });
         }
     }
 

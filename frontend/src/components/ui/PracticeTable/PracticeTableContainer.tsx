@@ -7,7 +7,7 @@ import { fetchPractices } from '../../../api/services/api';
 const PracticeTableContainer: React.FC = () => {
   const [rows, setRows] = useState<PracticeData[]>([]);
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(10); // Ensure initial value is one of the available options
   const [editRow, setEditRow] = useState<PracticeData | null>(null);
 
   useEffect(() => {

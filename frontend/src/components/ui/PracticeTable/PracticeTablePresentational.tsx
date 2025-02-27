@@ -130,6 +130,7 @@ const PracticeTablePresentational: React.FC<PracticeTablePresentationalProps> = 
         onPageChange={(_, newPage) => onPageChange(newPage)}
         rowsPerPage={rowsPerPage}
         onRowsPerPageChange={(event) => onRowsPerPageChange(parseInt(event.target.value, 10))}
+        rowsPerPageOptions={[10, 25, 50, 100]} // Ensure the available options are provided
       />
 
       <ConfirmationDialogContainer

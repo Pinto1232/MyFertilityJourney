@@ -10,14 +10,11 @@ const DashboardContainer: React.FC = () => {
 
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
-  // Retrieve user from router state
   const location = useLocation();
   const user = location.state?.user;
 
-  // DEBUG: Check if user is truly coming in
   console.log('DashboardContainer user:', user);
 
-  // Fetch all dashboard data on mount
   useEffect(() => {
     const getAllData = async () => {
       try {

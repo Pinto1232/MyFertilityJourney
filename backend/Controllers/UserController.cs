@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Mvc;
 using backend.Models;
 using backend.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace backend.Controllers
 {
@@ -20,17 +20,12 @@ namespace backend.Controllers
             _authService = authService;
         }
 
-        // POST: api/user/register
         [HttpPost("register")]
         public async Task<IActionResult> Register(User user)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
             if (await _context.Users.AnyAsync(u => u.Email == user.Email))
                 return BadRequest(new { message = "Email is already taken" });
 
-            // Hash the password before saving
             user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
@@ -38,13 +33,9 @@ namespace backend.Controllers
             return Ok(new { message = "User registered successfully" });
         }
 
-        // POST: api/user/login
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginRequest request)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
             var user = await _context.Users.SingleOrDefaultAsync(u => u.Email == request.Email);
             if (user == null || !BCrypt.Net.BCrypt.Verify(request.Password, user.Password))
                 return Unauthorized(new { message = "Invalid credentials" });
@@ -53,16 +44,16 @@ namespace backend.Controllers
             return Ok(new { token });
         }
 
-        // GET: api/user/profile
         [HttpGet("profile")]
-        [Authorize]
         public IActionResult GetUserProfile()
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var email = User.FindFirst(ClaimTypes.Email)?.Value;
 
             if (userId == null || email == null)
+            {
                 return Unauthorized(new { message = "Invalid token claims" });
+            }
 
             return Ok(new { userId, email, message = "Profile data" });
         }

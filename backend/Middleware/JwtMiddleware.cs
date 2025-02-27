@@ -1,7 +1,7 @@
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
 using System.Text;
+using System.Security.Claims;
 
 namespace backend.Middleware
 {
@@ -14,41 +14,38 @@ namespace backend.Middleware
             _next = next;
         }
 
-        public async Task Invoke(HttpContext context)
+         public async Task Invoke(HttpContext context)
         {
             var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
 
-            if (token != null)
+        if (token != null)
+        {
+            try
             {
-                try
+                var tokenHandler = new JwtSecurityTokenHandler();
+                var key = Encoding.ASCII.GetBytes("your-very-secret-key");
+
+                tokenHandler.ValidateToken(token, new TokenValidationParameters
                 {
-                    var tokenHandler = new JwtSecurityTokenHandler();
-                    var key = Encoding.ASCII.GetBytes("your-very-secret-key");
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = "bluegrass-digital-api",
+                    ValidAudience = "bluegrass-digital-users",
+                    IssuerSigningKey = new SymmetricSecurityKey(key)
+                }, out SecurityToken validatedToken);
 
-                    tokenHandler.ValidateToken(token, new TokenValidationParameters
-                    {
-                        ValidateIssuer = true,
-                        ValidateAudience = true,
-                        ValidateLifetime = true,
-                        ValidateIssuerSigningKey = true,
-                        ValidIssuer = "bluegrass-digital-api",
-                        ValidAudience = "bluegrass-digital-users",
-                        IssuerSigningKey = new SymmetricSecurityKey(key)
-                    }, out SecurityToken validatedToken);
+                var jwtToken = (JwtSecurityToken)validatedToken;
+                var userId = jwtToken.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value;
 
-                    var jwtToken = (JwtSecurityToken)validatedToken;
-                    var userId = jwtToken.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value;
-
-                    context.Items["User"] = userId;
-                }
-                catch
-                {
-                    // Invalid token - optionally, log or handle accordingly.
-                }
+                context.Items["User"] = userId;
             }
-            
-            // Continue to the next middleware in the pipeline
-            await _next(context);
+            catch
+            {
+                // Invalid token
+            }
+            }
         }
 
         private void AttachUserToContext(HttpContext context, IConfiguration configuration, string token)

@@ -44,8 +44,6 @@ namespace backend.Controllers
             practice.CreatedAt = DateTime.UtcNow;
             _context.Practices.Add(practice);
             await _context.SaveChangesAsync();
-
-            // Ensure the correct action is referenced by specifying GetPractice in this controller.
             return CreatedAtAction(nameof(GetPractice), new { id = practice.Id }, practice);
         }
     }

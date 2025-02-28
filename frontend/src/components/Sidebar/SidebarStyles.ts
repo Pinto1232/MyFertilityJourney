@@ -54,10 +54,11 @@ export const boxStyles = (isOpen: boolean) => ({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
+  width: '150px',
   py: isOpen ? 1 : 0,
   mt: isOpen ? -8 : 0,
   mb: isOpen ? 2 : 0,
-  ml: isOpen ? -1 : 0
+  ml: isOpen ? 1 : 0
 });
 
 export const imgStyles = (isOpen: boolean) => ({

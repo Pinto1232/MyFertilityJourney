@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Box, Typography } from '@mui/material';
 import { ErrorMessageProps } from './ErrorMessage.types';
 import { errorMessageStyles } from './ErrorMessage.styles';
@@ -16,4 +16,4 @@ const ErrorMessage: React.FC<ErrorMessageProps> = ({ message, onClose }) => {
   );
 };
 
-export default ErrorMessage;
+export default memo(ErrorMessage);

@@ -23,4 +23,4 @@ const Spinner: React.FC = () => {
   );
 };
 
-export default Spinner;
+export default React.memo(Spinner);

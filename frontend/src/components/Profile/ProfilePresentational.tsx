@@ -32,4 +32,4 @@ const ProfilePresentational: React.FC<ProfilePresentationalProps> = ({ userProfi
     );
 };
 
-export default ProfilePresentational;
+export default React.memo(ProfilePresentational);

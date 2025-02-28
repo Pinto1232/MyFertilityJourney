@@ -189,4 +189,4 @@ const NotificationDropdown: React.FC<NotificationDropdownProps> = ({ onClearAll 
   );
 };
 
-export default NotificationDropdown;
+export default React.memo(NotificationDropdown);

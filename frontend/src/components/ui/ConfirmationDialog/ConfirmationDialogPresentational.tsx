@@ -111,4 +111,4 @@ const ConfirmationDialogPresentational: React.FC<ConfirmationDialogContainerProp
   );
 };
 
-export default ConfirmationDialogPresentational;
+export default React.memo(ConfirmationDialogPresentational);

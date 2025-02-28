@@ -13,7 +13,7 @@ const SidebarPresentational: React.FC<SidebarPresentationalProps> = ({
     <StyledDrawer variant="permanent" open={isOpen}>
       <Toolbar />
       <Box sx={boxStyles(isOpen)}>
-        <img src="/assets/logo.jpg" alt="Logo" style={imgStyles(isOpen)} />
+        <img src="/assets/logo.jpg" alt="Logo" style={imgStyles(isOpen)} loading="lazy" />
       </Box>
       <List>
         {menuItems.map((item) => (
@@ -36,4 +36,4 @@ const SidebarPresentational: React.FC<SidebarPresentationalProps> = ({
   );
 };
 
-export default SidebarPresentational;
+export default React.memo(SidebarPresentational);

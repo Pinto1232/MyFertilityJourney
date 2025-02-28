@@ -151,4 +151,4 @@ const PracticeTablePresentational: React.FC<PracticeTablePresentationalProps> = 
   );
 };
 
-export default PracticeTablePresentational;
+export default React.memo(PracticeTablePresentational);

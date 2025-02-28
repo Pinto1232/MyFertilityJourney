@@ -292,4 +292,4 @@ const StatCardPresentational: React.FC<StatCardPresentationalProps> = ({
   );
 };
 
-export default StatCardPresentational;
+export default React.memo(StatCardPresentational);

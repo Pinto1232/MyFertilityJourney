@@ -40,6 +40,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ isLogin, formData, errors, onChange
                     <StyledImage
                         src="/assets/baby.jpg"
                         alt="Chart Placeholder"
+                        loading="lazy"
                     />
                 </Box>
             </LeftPanel>
@@ -126,4 +127,4 @@ const AuthForm: React.FC<AuthFormProps> = ({ isLogin, formData, errors, onChange
     );
 };
 
-export default AuthForm;
+export default React.memo(AuthForm);

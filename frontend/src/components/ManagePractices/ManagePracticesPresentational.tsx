@@ -1,4 +1,3 @@
-// ManagePracticesPresentational.tsx
 import { Box, Typography, Button, Switch, IconButton } from '@mui/material';
 import React from 'react';
 import { ManagePracticesPresentationalProps } from './ManagePracticesTypes';
@@ -63,4 +62,4 @@ const ManagePracticesPresentational: React.FC<ManagePracticesPresentationalProps
   );
 };
 
-export default ManagePracticesPresentational;
+export default React.memo(ManagePracticesPresentational);

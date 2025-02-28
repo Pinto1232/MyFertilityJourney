@@ -50,4 +50,4 @@ const DonutChartPresentational: React.FC<DonutChartProps> = ({
     );
 };
 
-export default DonutChartPresentational;
+export default React.memo(DonutChartPresentational);

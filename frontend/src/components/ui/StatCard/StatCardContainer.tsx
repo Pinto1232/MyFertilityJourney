@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { fetchMetrics, fetchPractices, registerUser } from '../../../api/services/api';
+import useApi from '../../../api/services/api';
 import { AxiosError } from 'axios';
 import StatCardPresentational from './StatCardPresentational';
 import { UserProfile, Metrics, Practice } from './StatCard.types';
 
 const StatCardContainer: React.FC = () => {
+  const { fetchMetrics, fetchPractices, registerUser } = useApi();
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
   const [metrics, setMetrics] = useState<Metrics | null>(null);
   const [practices, setPractices] = useState<Practice[]>([]);
@@ -42,7 +43,7 @@ const StatCardContainer: React.FC = () => {
     };
 
     fetchData();
-  }, []);
+  }, [fetchMetrics, fetchPractices]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({

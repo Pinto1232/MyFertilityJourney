@@ -1,26 +1,15 @@
-// src/components/Navbar/NavbarContainer.tsx
 import React from 'react';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
 import NavbarPresentational from './NavbarPresentational';
 import NotificationDropdown from './NotificationDropdown';
 import { useNotifications } from '../../context/NotificationContext';
 import { useNavigate } from 'react-router-dom';
-
-interface NavbarContainerProps {
-  toggleSidebar: () => void;
-  userData?: {
-    email: string;
-    password: string;
-    confirmPassword?: string;
-    name?: string;
-  };
-}
+import { NavbarContainerProps } from './NavbarInterfaces';
 
 const NavbarContainer: React.FC<NavbarContainerProps> = ({ toggleSidebar, userData }) => {
   const [showNotifications, setShowNotifications] = React.useState(false);
   const { unreadCount, clearNotifications } = useNotifications();
   const navigate = useNavigate();
-
 
   const handleClearAll = () => {
     clearNotifications();

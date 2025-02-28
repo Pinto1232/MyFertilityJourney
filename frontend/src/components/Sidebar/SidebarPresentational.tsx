@@ -1,40 +1,7 @@
-// SidebarPresentational.tsx
-
 import React from 'react';
-import {
-  Drawer,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  styled,
-  Toolbar,
-  Box
-} from '@mui/material';
-
-interface SidebarPresentationalProps {
-  isOpen: boolean;
-  menuItems: Array<{ text: string; icon: React.ReactNode }>;
-  selectedMenuItem: string;
-  onItemClick: (itemText: string) => void;
-}
-
-const StyledDrawer = styled(Drawer)(({ theme, open }) => ({
-  width: open ? 240 : theme.spacing(7),
-  flexShrink: 0,
-  whiteSpace: 'nowrap',
-  boxSizing: 'border-box',
-  '& .MuiDrawer-paper': {
-    width: open ? 248 : theme.spacing(7),
-    overflowX: 'hidden',
-    transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: open
-        ? theme.transitions.duration.enteringScreen
-        : theme.transitions.duration.leavingScreen,
-    }),
-  },
-}));
+import { List, ListItem, ListItemIcon, ListItemText, Toolbar, Box } from '@mui/material';
+import { SidebarPresentationalProps } from './SidebarTypes';
+import { StyledDrawer, listItemStyles, listItemIconStyles, listItemTextStyles, boxStyles, imgStyles } from './SidebarStyles';
 
 const SidebarPresentational: React.FC<SidebarPresentationalProps> = ({
   isOpen,
@@ -45,74 +12,22 @@ const SidebarPresentational: React.FC<SidebarPresentationalProps> = ({
   return (
     <StyledDrawer variant="permanent" open={isOpen}>
       <Toolbar />
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          py: isOpen ? 1 : 0,
-          mt: isOpen ? -8 : 0,
-          mb: isOpen ? 2 : 0,
-          ml: isOpen ? -1 : 0
-        }}
-      >
-        <img
-          src="/assets/logo.jpg"
-          alt="Logo"
-          style={{
-            width: isOpen ? '190px' : '50%',
-            margin: isOpen ? 10 :  8,
-            maxWidth: '100%',
-            height: 'auto'
-          }}
-        />
+      <Box sx={boxStyles(isOpen)}>
+        <img src="/assets/logo.jpg" alt="Logo" style={imgStyles(isOpen)} />
       </Box>
       <List>
         {menuItems.map((item) => (
           <ListItem
             key={item.text}
             onClick={() => onItemClick(item.text)}
-            sx={{
-              backgroundColor:
-                selectedMenuItem === item.text ? '#67ADB914' : 'inherit',
-              color: selectedMenuItem === item.text ? '#578388' : '#414141',
-              cursor: 'pointer',
-              margin: '8px 8px',
-              width: '220px',
-              height: '48px',
-              textAlign: 'start',
-              borderRadius: '8px',
-              paddingRight: '12px',
-              paddingLeft: '10px',
-              gap: '0px',
-              '&:hover': {
-                backgroundColor: '#67ADB914',
-                color: '#578388'
-              }
-            }}
+            sx={listItemStyles(selectedMenuItem, item.text)}
           >
-            <ListItemIcon
-              sx={{
-                minWidth: '40px',
-                color:
-                  selectedMenuItem === item.text ? '#578388' : '#67ADB9'
-              }}
-            >
+            <ListItemIcon sx={listItemIconStyles(selectedMenuItem, item.text)}>
               <Box sx={{ fontSize: 27 }}>{item.icon}</Box>
             </ListItemIcon>
             <ListItemText
               primary={item.text}
-              sx={{
-                fontWeight: selectedMenuItem === item.text ? 700 : 600,
-                font:   selectedMenuItem === item.text ? 'bold' : 'boldeer',
-                opacity: isOpen ? 1 : 0,
-                fontSize: '14px',
-                lineHeight: '22px',
-                letterSpacing: '0px',
-                color:
-                  selectedMenuItem === item.text ? '#578388' : '#414141',
-                  
-              }}
+              sx={listItemTextStyles(isOpen, selectedMenuItem, item.text)}
             />
           </ListItem>
         ))}

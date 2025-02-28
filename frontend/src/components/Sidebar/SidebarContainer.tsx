@@ -1,5 +1,3 @@
-// SidebarContainer.tsx
-
 import React from 'react';
 import SidebarPresentational from './SidebarPresentational';
 import menuItems from '../../utils/menuItems';

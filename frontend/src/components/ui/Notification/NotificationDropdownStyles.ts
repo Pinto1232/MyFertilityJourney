@@ -3,7 +3,7 @@ import { Box } from '@mui/material';
 
 export const NotificationBox = styled(Box)(({ theme }) => ({
   position: 'fixed',
-  right: '193px',
+  right: '286px',
   top: '100px',
   width: '300px',
   maxHeight: '55vh',

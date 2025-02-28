@@ -1,5 +1,6 @@
 import React from 'react';
 import { TextField, TextFieldProps } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 
 type ReusableTextFieldProps = TextFieldProps & {
   label: string;
@@ -21,6 +22,8 @@ const ReusableTextField: React.FC<ReusableTextFieldProps> = ({
   labelFontSize,
   ...props
 }) => {
+  const theme = useTheme();
+
   return (
     <TextField
       fullWidth
@@ -33,6 +36,9 @@ const ReusableTextField: React.FC<ReusableTextFieldProps> = ({
       helperText={helperText}
       InputLabelProps={{
         style: { fontSize: labelFontSize },
+      }}
+      InputProps={{
+        style: { color: theme.palette.mode === 'dark' ? '#000000' : '#000000' }
       }}
       {...props}
     />

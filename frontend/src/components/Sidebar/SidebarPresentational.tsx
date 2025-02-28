@@ -1,7 +1,8 @@
 import React from 'react';
-import { List, ListItem, ListItemIcon, ListItemText, Toolbar, Box } from '@mui/material';
+import { List, ListItem, ListItemIcon, ListItemText, Toolbar, Box, Typography } from '@mui/material';
 import { SidebarPresentationalProps } from './SidebarTypes';
 import { StyledDrawer, listItemStyles, listItemIconStyles, listItemTextStyles, boxStyles, imgStyles } from './SidebarStyles';
+import { useTheme } from '@mui/material/styles';
 
 const SidebarPresentational: React.FC<SidebarPresentationalProps> = ({
   isOpen,
@@ -9,11 +10,18 @@ const SidebarPresentational: React.FC<SidebarPresentationalProps> = ({
   selectedMenuItem,
   onItemClick
 }) => {
+  const theme = useTheme();
   return (
-    <StyledDrawer variant="permanent" open={isOpen}>
+    <StyledDrawer variant="permanent" open={isOpen} sx={{ backgroundColor: theme.palette.background.default }}>
       <Toolbar />
       <Box sx={boxStyles(isOpen)}>
-        <img src="/assets/logo.jpg" alt="Logo" style={imgStyles(isOpen)} loading="lazy" />
+        {theme.palette.mode === 'dark' ? (
+          <Typography sx={{ color: '#FFFFFF', fontWeight: 'bold', fontSize: '1.2rem', ml: 7 }}>
+            My Fertility Journey
+          </Typography>
+        ) : (
+          <img src="/assets/logo.jpg" alt="Logo" style={imgStyles(isOpen)} loading="lazy" />
+        )}
       </Box>
       <List>
         {menuItems.map((item) => (

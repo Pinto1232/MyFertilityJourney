@@ -6,6 +6,7 @@ import PracticeTableContainer from '../ui/PracticeTable/PracticeTableContainer';
 import ManagePracticesContainer from '../ManagePractices/ManagePracticesContainer';
 import ProfileContainer from '../Profile/ProfileContainer';
 import LogsContainer from '../Logs/LogsContainer'; // Import LogsContainer
+import { useTheme } from '@mui/material/styles';
 
 interface DashboardPresentationalProps {
     isSidebarOpen: boolean;
@@ -23,13 +24,14 @@ const DashboardPresentational: React.FC<DashboardPresentationalProps> = ({
     selectedMenuItem,
     userData,
 }) => {
+    const theme = useTheme();
     const capitalize = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
 
     const contentMap: { [key: string]: React.ReactNode } = {
         Dashboard: (
             <Box
                 sx={{
-                    backgroundColor: '#FAFAFA',
+                    backgroundColor: theme.palette.background.default,
                     height: '100vh',
                     padding: '10px',
                     marginTop: '-15px',
@@ -42,7 +44,13 @@ const DashboardPresentational: React.FC<DashboardPresentationalProps> = ({
                 }}
             >
                 {userData && (
-                    <Box mt={5} sx={{ padding: '0 24px' }}>
+                    <Box
+                        mt={5}
+                        sx={{
+                            padding: '0 24px',
+                            color: theme.palette.mode === 'dark' ? '#FFFFFF' : theme.palette.text.primary,
+                        }}
+                    >
                         <Typography
                             variant="h4"
                             sx={{
@@ -62,7 +70,7 @@ const DashboardPresentational: React.FC<DashboardPresentationalProps> = ({
                     <Typography
                         variant="body1"
                         sx={{
-                            color: '#414141',
+                            color: theme.palette.text.primary,
                             fontWeight: 400,
                             lineHeight: '22px',
                         }}
@@ -91,7 +99,7 @@ const DashboardPresentational: React.FC<DashboardPresentationalProps> = ({
             </Box>
         ),
         'My Profile': <Box sx={{
-            backgroundColor: '#FAFAFA',
+            backgroundColor: theme.palette.background.default,
             height: '100vh',
             padding: '10px',
             overflowY: 'auto',
@@ -108,7 +116,7 @@ const DashboardPresentational: React.FC<DashboardPresentationalProps> = ({
         Logs: (
             <Box
                 sx={{
-                    backgroundColor: '#FAFAFA',
+                    backgroundColor: theme.palette.background.default,
                     height: '100vh',
                     padding: '10px',
                     overflowY: 'auto',

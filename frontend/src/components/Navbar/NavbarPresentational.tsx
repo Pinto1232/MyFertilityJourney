@@ -8,7 +8,8 @@ import {
   Menu,
   MenuItem,
   ListItemText,
-  Divider
+  Divider,
+  Switch
 } from '@mui/material';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { ChevronLeftOutlined } from '@mui/icons-material';
@@ -16,6 +17,9 @@ import React, { useState } from 'react';
 import { BiChevronDown } from 'react-icons/bi';
 import { StyledAppBar } from './NavbarStyles';
 import { NavbarPresentationalProps } from './NavbarInterfaces';
+import { useThemeToggle } from '../../theme/useThemeToggle';
+import { useTheme } from '@mui/material/styles';
+import { FaSun, FaMoon } from 'react-icons/fa';
 
 const NavbarPresentational: React.FC<NavbarPresentationalProps> = ({
   toggleSidebar,
@@ -26,6 +30,8 @@ const NavbarPresentational: React.FC<NavbarPresentationalProps> = ({
 }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+  const { toggleTheme } = useThemeToggle();
+  const theme = useTheme();
 
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -45,7 +51,10 @@ const NavbarPresentational: React.FC<NavbarPresentationalProps> = ({
             alignItems: 'center',
           }}
         >
-          <IconButton edge="start" onClick={toggleSidebar} sx={{ mr: 2 }}>
+          <IconButton edge="start" onClick={toggleSidebar} sx={{ mr: 2, 
+            color: '#67ADB9',
+            fontSize: '30px',
+           }}>
             <ChevronLeftOutlined />
           </IconButton>
           <Typography variant="h6" noWrap sx={{ flexGrow: 1 }}>
@@ -55,15 +64,15 @@ const NavbarPresentational: React.FC<NavbarPresentationalProps> = ({
               <Badge
                 badgeContent={notificationsCount}
                 color="error"
-                sx={{
-                  '& .MuiBadge-badge': {
-                    backgroundColor: '#FF4842'
-                  }
-                }}
               >
-                <NotificationsIcon sx={{ color: '#9D9D9D' }} />
+                <NotificationsIcon sx={{ color: theme.palette.mode === 'dark' ? '#FFFFFF' : '#9D9D9D' }} />
               </Badge>
             </IconButton>
+            <Box display="flex" alignItems="center">
+              <FaSun style={{ color: theme.palette.mode === 'dark' ? '#9D9D9D' : '#FFD700', marginRight: 8 }} />
+              <Switch onChange={toggleTheme} />
+              <FaMoon style={{ color: theme.palette.mode === 'dark' ? '#FFD700' : '#9D9D9D', marginLeft: 8 }} />
+            </Box>
             <IconButton
               onClick={handleMenuOpen}
               disableRipple
@@ -78,8 +87,8 @@ const NavbarPresentational: React.FC<NavbarPresentationalProps> = ({
             >
               <Avatar
                 sx={{
-                  backgroundColor: '#67ADB914',
-                  color: '#578388',
+                  backgroundColor: theme.palette.mode === 'dark' ? '#FFFFFF' : '#67ADB914' ,
+                  color: theme.palette.mode === 'dark' ? '#578388' : '#212B36 ' ,
                   width: '40px',
                   height: '40px',
                   fontWeight: 600,
@@ -102,7 +111,7 @@ const NavbarPresentational: React.FC<NavbarPresentationalProps> = ({
                   alignItems: 'center',
                   gap: 2,
                   textTransform: 'capitalize',
-                  color: '#414141',
+                  color: theme.palette.mode === 'dark' ? '#FFFF' : '#67ADB9 ' ,
                   fontSize: 14,
                   lineHeight: '22px',
                   '&:hover': {
@@ -116,7 +125,7 @@ const NavbarPresentational: React.FC<NavbarPresentationalProps> = ({
                   style={{
                     fontSize: 30,
                     fontWeight: 500,
-                    color: '#67ADB9',
+                    color: theme.palette.mode === 'dark' ? '#FFFF' : '#67ADB9 ' ,
                     transform: open ? 'rotate(180deg)' : 'rotate(0deg)',
                     transition: 'transform 0.3s ease',
                     cursor: 'pointer',

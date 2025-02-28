@@ -8,12 +8,15 @@ import { LeftSection, RightSection, IconCircle, SecondIconCircle, CardContainer 
 import { motion } from 'framer-motion';
 import CountUp from 'react-countup';
 import {  StatCardPresentationalProps } from './StatCard.types';
+import { useTheme } from '@mui/material/styles';
 
 const MotionCardContainer = motion(CardContainer);
 
 const StatCardPresentational: React.FC<StatCardPresentationalProps> = ({
   metrics,
 }) => {
+  const theme = useTheme(); // Add this line to use the theme
+
   const totalPossibleUsers = 1000;
   const totalPractices = 1000;
   const totalTreatments = 1000;
@@ -37,7 +40,7 @@ const StatCardPresentational: React.FC<StatCardPresentationalProps> = ({
                 }}
               >
                 <LeftSection>
-                  <Typography variant="h4" sx={{ color: '#414141', fontWeight: 600, mb: 2, fontSize: 14 }}>
+                  <Typography variant="h4" sx={{ color: theme.palette.mode === 'dark' ? '#FFFFFF' : '#414141', fontWeight: 600, mb: 2, fontSize: 14 }}>
                     Total Users
                   </Typography>
                   <Box display="flex" alignItems="center" gap={1}>
@@ -49,11 +52,11 @@ const StatCardPresentational: React.FC<StatCardPresentationalProps> = ({
                     >
                       <MdOutlineArrowUpward color="green" size={16} />
                     </SecondIconCircle>
-                    <Typography variant="body2" sx={{ color: '#414141', fontWeight: 600, fontSize: 20 }}>
+                    <Typography variant="body2" sx={{ color: theme.palette.mode === 'dark' ? '#FFFFFF' : '#414141', fontWeight: 600, fontSize: 20 }}>
                       {Math.floor((metrics.totalUsers / totalPossibleUsers) * 100)}%
                     </Typography>
                   </Box>
-                  <Typography variant="h4" sx={{ fontWeight: 700, color: '#414141', fontSize: 32 }}>
+                  <Typography variant="h4" sx={{ fontWeight: 700, color: theme.palette.mode === 'dark' ? '#FFFFFF' : '#414141', fontSize: 32 }}>
                     <CountUp start={0} end={metrics.totalUsers} duration={1.2} separator="," />
                   </Typography>
                 </LeftSection>
@@ -80,7 +83,7 @@ const StatCardPresentational: React.FC<StatCardPresentationalProps> = ({
                 }}
               >
                 <LeftSection>
-                  <Typography variant="h4" sx={{ color: '#414141', fontWeight: 600, mb: 2, fontSize: 14 }}>
+                  <Typography variant="h4" sx={{ color: theme.palette.mode === 'dark' ? '#FFFFFF' : '#414141', fontWeight: 600, mb: 2, fontSize: 14 }}>
                     Total Practices
                   </Typography>
                   <Box display="flex" alignItems="center" gap={1}>
@@ -92,11 +95,11 @@ const StatCardPresentational: React.FC<StatCardPresentationalProps> = ({
                     >
                       <MdOutlineArrowUpward color="green" size={16} />
                     </SecondIconCircle>
-                    <Typography variant="body2" sx={{ color: '#414141', fontWeight: 600, fontSize: 20 }}>
+                    <Typography variant="body2" sx={{ color: theme.palette.mode === 'dark' ? '#FFFFFF' : '#414141', fontWeight: 600, fontSize: 20 }}>
                       {Math.floor(metrics.totalPractices / totalPractices * 100)}%
                     </Typography>
                   </Box>
-                  <Typography variant="h4" sx={{ fontWeight: 700, color: '#414141', fontSize: 32 }}>
+                  <Typography variant="h4" sx={{ fontWeight: 700, color: theme.palette.mode === 'dark' ? '#FFFFFF' : '#414141', fontSize: 32 }}>
                     <CountUp start={0} end={metrics.totalPractices} duration={1.2} separator="," />
                   </Typography>
                 </LeftSection>
@@ -124,7 +127,7 @@ const StatCardPresentational: React.FC<StatCardPresentationalProps> = ({
                 }}
               >
                 <LeftSection>
-                  <Typography variant="h4" sx={{ color: '#414141', fontWeight: 600, mb: 2, fontSize: 14 }}>
+                  <Typography variant="h4" sx={{ color: theme.palette.mode === 'dark' ? '#FFFFFF' : '#414141', fontWeight: 600, mb: 2, fontSize: 14 }}>
                     Total Treatments
                   </Typography>
                   <Box display="flex" alignItems="center" gap={1}>
@@ -136,11 +139,11 @@ const StatCardPresentational: React.FC<StatCardPresentationalProps> = ({
                     >
                       <MdOutlineArrowUpward color="green" size={16} />
                     </SecondIconCircle>
-                    <Typography variant="body2" sx={{ color: '#414141', fontWeight: 600, fontSize: 20 }}>
+                    <Typography variant="body2" sx={{ color: theme.palette.mode === 'dark' ? '#FFFFFF' : '#414141', fontWeight: 600, fontSize: 20 }}>
                       {Math.floor((metrics.totalTreatments / totalTreatments) * 100)}%
                     </Typography>
                   </Box>
-                  <Typography variant="h4" sx={{ fontWeight: 700, color: '#414141', fontSize: 32 }}>
+                  <Typography variant="h4" sx={{ fontWeight: 700, color: theme.palette.mode === 'dark' ? '#FFFFFF' : '#414141', fontSize: 32 }}>
                     <CountUp start={0} end={metrics.totalTreatments} duration={1.2} separator="," />
                   </Typography>
                 </LeftSection>
@@ -167,7 +170,7 @@ const StatCardPresentational: React.FC<StatCardPresentationalProps> = ({
                 }}
               >
                 <LeftSection>
-                  <Typography variant="h4" sx={{ color: '#414141', fontWeight: 600, mb: 2, fontSize: 14 }}>
+                  <Typography variant="h4" sx={{ color: theme.palette.mode === 'dark' ? '#FFFFFF' : '#414141', fontWeight: 600, mb: 2, fontSize: 14 }}>
                     Total Consents
                   </Typography>
                   <Box display="flex" alignItems="center" gap={1}>
@@ -179,11 +182,11 @@ const StatCardPresentational: React.FC<StatCardPresentationalProps> = ({
                     >
                       <MdOutlineArrowUpward color="green" size={16} />
                     </SecondIconCircle>
-                    <Typography variant="body2" sx={{ color: '#414141', fontWeight: 600, fontSize: 20 }}>
+                    <Typography variant="body2" sx={{ color: theme.palette.mode === 'dark' ? '#FFFFFF' : '#414141', fontWeight: 600, fontSize: 20 }}>
                       {Math.floor((metrics.totalConsents / totalConsents) * 100)}%
                     </Typography>
                   </Box>
-                  <Typography variant="h4" sx={{ fontWeight: 700, color: '#414141', fontSize: 32 }}>
+                  <Typography variant="h4" sx={{ fontWeight: 700, color: theme.palette.mode === 'dark' ? '#FFFFFF' : '#414141', fontSize: 32 }}>
                     <CountUp start={0} end={metrics.totalConsents} duration={1.2} separator="," />
                   </Typography>
                 </LeftSection>
@@ -210,7 +213,7 @@ const StatCardPresentational: React.FC<StatCardPresentationalProps> = ({
                 }}
               >
                 <LeftSection>
-                  <Typography variant="h4" sx={{ color: '#414141', fontWeight: 600, mb: 2, fontSize: 14 }}>
+                  <Typography variant="h4" sx={{ color: theme.palette.mode === 'dark' ? '#FFFFFF' : '#414141', fontWeight: 600, mb: 2, fontSize: 14 }}>
                     Total Consents Signed
                   </Typography>
                   <Box display="flex" alignItems="center" gap={1}>
@@ -222,11 +225,11 @@ const StatCardPresentational: React.FC<StatCardPresentationalProps> = ({
                     >
                       <MdOutlineArrowUpward color="green" size={16} />
                     </SecondIconCircle>
-                    <Typography variant="body2" sx={{ color: '#414141', fontWeight: 600, fontSize: 20 }}>
+                    <Typography variant="body2" sx={{ color: theme.palette.mode === 'dark' ? '#FFFFFF' : '#414141', fontWeight: 600, fontSize: 20 }}>
                       {Math.floor((metrics.totalConsentsSigned / totalConsentsSigned) * 100)}%
                     </Typography>
                   </Box>
-                  <Typography variant="h4" sx={{ fontWeight: 700, color: '#414141', fontSize: 32 }}>
+                  <Typography variant="h4" sx={{ fontWeight: 700, color: theme.palette.mode === 'dark' ? '#FFFFFF' : '#414141', fontSize: 32 }}>
                     <CountUp start={0} end={metrics.totalConsentsSigned} duration={1.2} separator="," />
                   </Typography>
                 </LeftSection>
@@ -253,7 +256,7 @@ const StatCardPresentational: React.FC<StatCardPresentationalProps> = ({
                 }}
               >
                 <LeftSection>
-                  <Typography variant="h4" sx={{ color: '#414141', fontWeight: 600, mb: 2, fontSize: 14 }}>
+                  <Typography variant="h4" sx={{ color: theme.palette.mode === 'dark' ? '#FFFFFF' : '#414141', fontWeight: 600, mb: 2, fontSize: 14 }}>
                     Total Fact Sheets Read
                   </Typography>
                   <Box display="flex" alignItems="center" gap={1}>
@@ -265,11 +268,11 @@ const StatCardPresentational: React.FC<StatCardPresentationalProps> = ({
                     >
                       <MdOutlineArrowUpward color="green" size={16} />
                     </SecondIconCircle>
-                    <Typography variant="body2" sx={{ color: '#414141', fontWeight: 600, fontSize: 20 }}>
+                    <Typography variant="body2" sx={{ color: theme.palette.mode === 'dark' ? '#FFFFFF' : '#414141', fontWeight: 600, fontSize: 20 }}>
                       {Math.floor((metrics.totalFactSheetsRead / totalFactSheetsRead) * 100)}%
                     </Typography>
                   </Box>
-                  <Typography variant="h4" sx={{ fontWeight: 700, color: '#414141', fontSize: 32 }}>
+                  <Typography variant="h4" sx={{ fontWeight: 700, color: theme.palette.mode === 'dark' ? '#FFFFFF' : '#414141', fontSize: 32 }}>
                     <CountUp start={0} end={metrics.totalFactSheetsRead} duration={1.2} separator="," />
                   </Typography>
                 </LeftSection>

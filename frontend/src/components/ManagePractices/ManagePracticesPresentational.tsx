@@ -4,6 +4,7 @@ import { ManagePracticesPresentationalProps } from './ManagePracticesTypes';
 import { styles } from './ManagePracticesStyles';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import { useTheme } from '@mui/material/styles';
 
 const ManagePracticesPresentational: React.FC<ManagePracticesPresentationalProps> = ({
   practices,
@@ -12,10 +13,17 @@ const ManagePracticesPresentational: React.FC<ManagePracticesPresentationalProps
   onTogglePractice,
   onEditPractice,
 }) => {
+  const theme = useTheme();
   return (
-    <Box sx={styles.container}>
+    <Box sx={{ ...styles.container, backgroundColor: theme.palette.background.default }}>
       <Box sx={styles.header}>
-        <Typography variant="h4" sx={styles.title}>
+        <Typography
+          variant="h4"
+          sx={{
+            ...styles.title,
+            color: theme.palette.mode === 'dark' ? '#FFFFFF' : '#000000',
+          }}
+        >
           Manage Practices
         </Typography>
         <Button variant="contained" sx={styles.addButton} onClick={onAddPractice}>
@@ -23,7 +31,13 @@ const ManagePracticesPresentational: React.FC<ManagePracticesPresentationalProps
         </Button>
       </Box>
       <Box sx={styles.subHeader}>
-        <Typography variant="body1" sx={styles.description}>
+        <Typography variant="body1" 
+           sx={{
+            ...styles.title,
+            color: theme.palette.mode === 'dark' ? '#FFFFFF' : '#000000',
+            fontSize: theme.palette.mode === 'dark' ? '16px' : '16px',
+          }}
+        >
           Here you can manage your practices. Below is the list of your practices:
         </Typography>
       </Box>

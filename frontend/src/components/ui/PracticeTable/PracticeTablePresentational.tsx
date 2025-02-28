@@ -20,6 +20,7 @@ import {
 } from './PracticeTable.styles';
 import { PracticeTablePresentationalProps, PracticeData } from './PracticeTable.types';
 import ConfirmationDialogContainer from '../../ui/ConfirmationDialog/ConfirmationDialogContainer';
+import { useTheme } from '@mui/material/styles';
 
 const PracticeTablePresentational: React.FC<PracticeTablePresentationalProps> = ({
   title,
@@ -33,6 +34,7 @@ const PracticeTablePresentational: React.FC<PracticeTablePresentationalProps> = 
   onPageChange,
   onRowsPerPageChange,
 }) => {
+  const theme = useTheme();
   const [selectedRow, setSelectedRow] = useState<PracticeData | null>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
 
@@ -63,6 +65,7 @@ const PracticeTablePresentational: React.FC<PracticeTablePresentationalProps> = 
           fontWeight: 700,
           ml: 1,
           fontSize: 18,
+          color: '#000000',
         }}
       >
         {title}
@@ -70,13 +73,18 @@ const PracticeTablePresentational: React.FC<PracticeTablePresentationalProps> = 
 
       <Table>
         <TableHead>
-          <TableRow sx={{ backgroundColor: '#F5F5F5', borderRadius: 20 }}>
-            <TableCell sx={{ fontWeight: 600 }}>Practise Name</TableCell>
-            <TableCell sx={{ fontWeight: 600 }}>Tel No</TableCell>
-            <TableCell sx={{ fontWeight: 600 }}>Email</TableCell>
-            <TableCell sx={{ fontWeight: 600 }}>Date Created</TableCell>
-            <TableCell sx={{ fontWeight: 600 }}>Status</TableCell>
-            <TableCell sx={{ fontWeight: 600 }}>Actions</TableCell>
+          <TableRow
+            sx={{
+              backgroundColor: theme.palette.mode === 'dark' ? '#333333' : '#F5F5F5',
+              borderRadius: 20,
+            }}
+          >
+            <TableCell sx={{ fontWeight: 600, color: theme.palette.mode === 'dark' ? '#FFFFFF' : '#000000' }}>Practise Name</TableCell>
+            <TableCell sx={{ fontWeight: 600, color: theme.palette.mode === 'dark' ? '#FFFFFF' : '#000000' }}>Tel No</TableCell>
+            <TableCell sx={{ fontWeight: 600, color: theme.palette.mode === 'dark' ? '#FFFFFF' : '#000000' }}>Email</TableCell>
+            <TableCell sx={{ fontWeight: 600, color: theme.palette.mode === 'dark' ? '#FFFFFF' : '#000000' }}>Date Created</TableCell>
+            <TableCell sx={{ fontWeight: 600, color: theme.palette.mode === 'dark' ? '#FFFFFF' : '#000000' }}>Status</TableCell>
+            <TableCell sx={{ fontWeight: 600, color: theme.palette.mode === 'dark' ? '#FFFFFF' : '#000000' }}>Actions</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -85,10 +93,10 @@ const PracticeTablePresentational: React.FC<PracticeTablePresentationalProps> = 
 
             return (
               <StyledTableRow key={index}>
-                <TableCell>{row.name}</TableCell>
-                <TableCell>{row.telNo}</TableCell>
-                <TableCell>{row.email}</TableCell>
-                <TableCell>{row.dateCreated}</TableCell>
+                <TableCell sx={{ color: '#000000' }}>{row.name}</TableCell>
+                <TableCell sx={{ color: '#000000' }}>{row.telNo}</TableCell>
+                <TableCell sx={{ color: '#000000' }}>{row.email}</TableCell>
+                <TableCell sx={{ color: '#000000' }}>{row.dateCreated}</TableCell>
 
                 <TableCell>
                   <Box display="flex" alignItems="center" gap={1}>
@@ -103,7 +111,7 @@ const PracticeTablePresentational: React.FC<PracticeTablePresentationalProps> = 
                         },
                       }}
                     />
-                    <Typography variant="body1">{row.status}</Typography>
+                    <Typography variant="body1" sx={{ color: '#000000' }}>{row.status}</Typography>
                   </Box>
                 </TableCell>
 
@@ -130,10 +138,11 @@ const PracticeTablePresentational: React.FC<PracticeTablePresentationalProps> = 
         onPageChange={(_, newPage) => onPageChange(newPage)}
         rowsPerPage={rowsPerPage}
         onRowsPerPageChange={(event) => onRowsPerPageChange(parseInt(event.target.value, 10))}
-        rowsPerPageOptions={[10, 25, 50, 100]} // Ensure the available options are provided
+        rowsPerPageOptions={[10, 25, 50, 100]} 
       />
 
       <ConfirmationDialogContainer
+        
         open={dialogOpen}
         title="Confirm Deletion"
         message={selectedRow ? (

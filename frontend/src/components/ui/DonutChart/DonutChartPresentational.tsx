@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box, CircularProgress, Typography } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import CountUp from 'react-countup';
 import { DonutChartProps } from './DonutChart.types';
 import { DonutItemContainer, DonutCenterText, DonutLabel } from './DonutChart.styles';
@@ -9,6 +10,8 @@ const DonutChartPresentational: React.FC<DonutChartProps> = ({
     label,
     color,
 }) => {
+    const theme = useTheme();
+
     return (
         <DonutItemContainer>
             <Box display="flex" alignItems="center" gap={2}>
@@ -32,18 +35,28 @@ const DonutChartPresentational: React.FC<DonutChartProps> = ({
                             color: color,
                         }}
                     />
-                    <DonutCenterText variant="body1" fontSize={16} fontWeight={600}>
+                    <DonutCenterText
+                        variant="body1"
+                        fontSize={16}
+                        fontWeight={600}
+                        sx={{ color: theme.palette.mode === 'dark' ? '#FFFFFF' : 'rgba(65, 65, 65, 1)' }}
+                    >
                         <CountUp start={0} end={percentage} duration={1.2} />%
                     </DonutCenterText>
                 </Box>
                 <Box display="flex" flexDirection="column" alignItems="flex-start">
                     <Typography
                         variant="h4"
-                        sx={{ color: 'rgba(65, 65, 65, 1)', fontWeight: 700 }}
+                        sx={{ color: theme.palette.mode === 'dark' ? '#FFFFFF' : 'rgba(65, 65, 65, 1)', fontWeight: 700 }}
                     >
                         <CountUp start={0} end={percentage} duration={1.2} />%
                     </Typography>
-                    <DonutLabel variant="body1">{label}</DonutLabel>
+                    <DonutLabel
+                        variant="body1"
+                        sx={{ color: theme.palette.mode === 'dark' ? '#FFFFFF' : 'rgba(65, 65, 65, 1)' }}
+                    >
+                        {label}
+                    </DonutLabel>
                 </Box>
             </Box>
         </DonutItemContainer>

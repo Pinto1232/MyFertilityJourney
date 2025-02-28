@@ -2,12 +2,17 @@ import React from 'react';
 import { Box, Typography, Button } from '@mui/material';
 import { ProfilePresentationalProps } from './ProfileTypes';
 import { styles } from './ProfileStyles';
+import { useTheme } from '@mui/material/styles';
 
 const ProfilePresentational: React.FC<ProfilePresentationalProps> = ({ userProfile, onEditProfile }) => {
+    const theme = useTheme();
     return (
-        <Box sx={styles.container}>
+        <Box sx={{ 
+           
+             ...styles.container, background: theme.palette.mode === 'dark' ? '#212B36 ' : '#FFFFFF '
+             }}>
             <Box sx={styles.header}>
-                <Typography variant="h4" sx={styles.title}>
+                <Typography variant="h4" sx={{ ...styles.title, color: theme.palette.mode === 'dark' ? '#FFFFFF' : '#000000' }}>
                     My Profile
                 </Typography>
                 <Button variant="contained" sx={styles.editButton} onClick={onEditProfile}>
@@ -15,17 +20,30 @@ const ProfilePresentational: React.FC<ProfilePresentationalProps> = ({ userProfi
                 </Button>
             </Box>
             <Box sx={styles.profileInfo}>
-                <Typography variant="body1" sx={styles.profileField}>
-                    <strong>Name:</strong> {userProfile.name}
+                <Typography variant="body1" sx={{ ...styles.profileField, color: theme.palette.mode === 'dark' ? '#FFFFFF' : '#000000' }}>
+                    <Typography sx={{
+                        ...styles.title,
+                        color: theme.palette.mode === 'dark' ? '#FFFFFF' : '#000000',
+                        fontSize: theme.palette.mode === 'dark' ? '16px' : '16px'
+                    }}>Name:</Typography> {userProfile.name}
                 </Typography>
-                <Typography variant="body1" sx={styles.profileField}>
-                    <strong>Email:</strong> {userProfile.email}
+                <Typography variant="body1" sx={{ ...styles.profileField, color: theme.palette.mode === 'dark' ? '#FFFFFF' : '#000000' }}>
+                    <Typography sx={{
+                        ...styles.title, color: theme.palette.mode === 'dark' ? '#FFFFFF' : '#000000',
+                        fontSize: theme.palette.mode === 'dark' ? '16px' : '16px'
+                    }}>Email:</Typography> {userProfile.email}
                 </Typography>
-                <Typography variant="body1" sx={styles.profileField}>
-                    <strong>Phone Number:</strong> {userProfile.phoneNumber}
+                <Typography variant="body1" sx={{ ...styles.profileField, color: theme.palette.mode === 'dark' ? '#FFFFFF' : '#000000' }}>
+                    <Typography sx={{
+                        ...styles.title, color: theme.palette.mode === 'dark' ? '#FFFFFF' : '#000000',
+                        fontSize: theme.palette.mode === 'dark' ? '16px' : '16px'
+                    }}>Phone Number:</Typography> {userProfile.phoneNumber}
                 </Typography>
-                <Typography variant="body1" sx={styles.profileField}>
-                    <strong>Address:</strong> {userProfile.address}
+                <Typography variant="body1" sx={{ ...styles.profileField, color: theme.palette.mode === 'dark' ? '#FFFFFF' : '#000000' }}>
+                    <Typography sx={{
+                        ...styles.title, color: theme.palette.mode === 'dark' ? '#FFFFFF' : '#000000',
+                        fontSize: theme.palette.mode === 'dark' ? '16px' : '16px'
+                    }}>Address:</Typography> {userProfile.address}
                 </Typography>
             </Box>
         </Box>

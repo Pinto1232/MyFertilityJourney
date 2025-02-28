@@ -13,6 +13,7 @@ import {
 } from './styles';
 import ReusableTextField from '../ui/ReusableTextField';
 import { AuthFormData } from './types';
+import { useTheme } from '@mui/material/styles';
 
 interface AuthFormProps {
     isLogin: boolean;
@@ -24,8 +25,11 @@ interface AuthFormProps {
 }
 
 const AuthForm: React.FC<AuthFormProps> = ({ isLogin, formData, errors, onChange, onSubmit, onSwitchAuth }) => {
+    const theme = useTheme();
+    const backgroundColor = theme.palette.mode === 'dark' ? theme.palette.background.default : '#fff';
+
     return (
-        <PageContainer>
+        <PageContainer style={{ backgroundColor }}>
             <LeftPanel>
                 <Typography variant="h4" gutterBottom>
                     My Fertility Journey

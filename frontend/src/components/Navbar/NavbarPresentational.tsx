@@ -8,7 +8,8 @@ import {
   Menu,
   MenuItem,
   ListItemText,
-  Divider
+  Divider,
+  Switch
 } from '@mui/material';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { ChevronLeftOutlined } from '@mui/icons-material';
@@ -16,6 +17,7 @@ import React, { useState } from 'react';
 import { BiChevronDown } from 'react-icons/bi';
 import { StyledAppBar } from './NavbarStyles';
 import { NavbarPresentationalProps } from './NavbarInterfaces';
+import { useThemeToggle } from '../../theme/useThemeToggle';
 
 const NavbarPresentational: React.FC<NavbarPresentationalProps> = ({
   toggleSidebar,
@@ -26,6 +28,7 @@ const NavbarPresentational: React.FC<NavbarPresentationalProps> = ({
 }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+  const { toggleTheme } = useThemeToggle();
 
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -64,6 +67,7 @@ const NavbarPresentational: React.FC<NavbarPresentationalProps> = ({
                 <NotificationsIcon sx={{ color: '#9D9D9D' }} />
               </Badge>
             </IconButton>
+            <Switch onChange={toggleTheme} />
             <IconButton
               onClick={handleMenuOpen}
               disableRipple

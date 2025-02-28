@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField } from '@mui/material';
 import { PracticeData } from './PracticeTable.types';
+import { useTheme } from '@mui/material/styles';
 
 interface EditPracticeModalProps {
   open: boolean;
@@ -10,6 +11,7 @@ interface EditPracticeModalProps {
 }
 
 const EditPracticeModal: React.FC<EditPracticeModalProps> = ({ open, practice, onSave, onClose }) => {
+  const theme = useTheme();
   const [formData, setFormData] = useState<PracticeData>({
     name: '',
     telNo: '',
@@ -44,7 +46,7 @@ const EditPracticeModal: React.FC<EditPracticeModalProps> = ({ open, practice, o
           padding: '16px',
           width: '500px',
           textAlign: 'center',
-          backgroundColor: '#ffffff',
+          backgroundColor: theme.palette.mode === 'dark' ? '#212B36' : '#ffffff',
           boxShadow: '0px 10px 30px rgba(0, 0, 0, 0.1)',
         },
       }}
@@ -53,7 +55,7 @@ const EditPracticeModal: React.FC<EditPracticeModalProps> = ({ open, practice, o
         sx={{
           fontWeight: 'bold',
           fontSize: '24px',
-          color: '#333',
+          color: theme.palette.mode === 'dark' ? '#FFFFFF' : '#333',
           paddingBottom: '10px',
         }}
       >
@@ -67,7 +69,11 @@ const EditPracticeModal: React.FC<EditPracticeModalProps> = ({ open, practice, o
           value={formData.name}
           onChange={handleChange}
           fullWidth
-          sx={{ marginBottom: '16px' }}
+          sx={{
+            marginBottom: '16px',
+            color: theme.palette.mode === 'dark' ? '#414141 ' : '#67ADB9',
+
+          }}
         />
         <TextField
           margin="dense"
@@ -76,7 +82,10 @@ const EditPracticeModal: React.FC<EditPracticeModalProps> = ({ open, practice, o
           value={formData.telNo}
           onChange={handleChange}
           fullWidth
-          sx={{ marginBottom: '16px' }}
+          sx={{
+            marginBottom: '16px',
+            color: theme.palette.mode === 'dark' ? '#414141 ' : '#67ADB9',
+          }}
         />
         <TextField
           margin="dense"
@@ -85,7 +94,10 @@ const EditPracticeModal: React.FC<EditPracticeModalProps> = ({ open, practice, o
           value={formData.email}
           onChange={handleChange}
           fullWidth
-          sx={{ marginBottom: '16px' }}
+          sx={{
+            marginBottom: '16px',
+            color: theme.palette.mode === 'dark' ? '#414141 ' : '#67ADB9',
+          }}
         />
         <TextField
           margin="dense"
@@ -101,8 +113,8 @@ const EditPracticeModal: React.FC<EditPracticeModalProps> = ({ open, practice, o
         <Button
           onClick={onClose}
           sx={{
-            backgroundColor: '#B0BEC5',
-            color: '#ffffff',
+            backgroundColor: theme.palette.mode === 'dark' ? '#414141 ' : '#747474',
+            color: theme.palette.mode === 'dark' ? '#FFFF' : '#FFFFFF',
             '&:hover': {
               backgroundColor: '#90A4AE',
             },
@@ -114,7 +126,7 @@ const EditPracticeModal: React.FC<EditPracticeModalProps> = ({ open, practice, o
         <Button
           onClick={handleSave}
           sx={{
-            backgroundColor: '#67ADB9 ',
+            backgroundColor: theme.palette.mode === 'dark' ? '#212B36' : '#67ADB9',
             color: '#ffffff',
             '&:hover': {
               backgroundColor: '#1565c0',

@@ -50,7 +50,7 @@ const StatCardPresentational: React.FC<StatCardPresentationalProps> = ({
                       <MdOutlineArrowUpward color="green" size={16} />
                     </SecondIconCircle>
                     <Typography variant="body2" sx={{ color: '#414141', fontWeight: 600, fontSize: 20 }}>
-                      {(metrics.totalUsers / totalPossibleUsers) * 100}%
+                      {Math.floor((metrics.totalUsers / totalPossibleUsers) * 100)}%
                     </Typography>
                   </Box>
                   <Typography variant="h4" sx={{ fontWeight: 700, color: '#414141', fontSize: 32 }}>
@@ -93,7 +93,7 @@ const StatCardPresentational: React.FC<StatCardPresentationalProps> = ({
                       <MdOutlineArrowUpward color="green" size={16} />
                     </SecondIconCircle>
                     <Typography variant="body2" sx={{ color: '#414141', fontWeight: 600, fontSize: 20 }}>
-                      {metrics.totalPractices / (totalPractices) * 100}%
+                      {Math.floor(metrics.totalPractices / totalPractices * 100)}%
                     </Typography>
                   </Box>
                   <Typography variant="h4" sx={{ fontWeight: 700, color: '#414141', fontSize: 32 }}>
@@ -137,7 +137,7 @@ const StatCardPresentational: React.FC<StatCardPresentationalProps> = ({
                       <MdOutlineArrowUpward color="green" size={16} />
                     </SecondIconCircle>
                     <Typography variant="body2" sx={{ color: '#414141', fontWeight: 600, fontSize: 20 }}>
-                      {(metrics.totalTreatments / totalTreatments) * 100}%
+                      {Math.floor((metrics.totalTreatments / totalTreatments) * 100)}%
                     </Typography>
                   </Box>
                   <Typography variant="h4" sx={{ fontWeight: 700, color: '#414141', fontSize: 32 }}>
@@ -180,7 +180,7 @@ const StatCardPresentational: React.FC<StatCardPresentationalProps> = ({
                       <MdOutlineArrowUpward color="green" size={16} />
                     </SecondIconCircle>
                     <Typography variant="body2" sx={{ color: '#414141', fontWeight: 600, fontSize: 20 }}>
-                      {(metrics.totalConsents / totalConsents) * 100}%
+                      {Math.floor((metrics.totalConsents / totalConsents) * 100)}%
                     </Typography>
                   </Box>
                   <Typography variant="h4" sx={{ fontWeight: 700, color: '#414141', fontSize: 32 }}>
@@ -223,7 +223,7 @@ const StatCardPresentational: React.FC<StatCardPresentationalProps> = ({
                       <MdOutlineArrowUpward color="green" size={16} />
                     </SecondIconCircle>
                     <Typography variant="body2" sx={{ color: '#414141', fontWeight: 600, fontSize: 20 }}>
-                      {(metrics.totalConsentsSigned / totalConsentsSigned) * 100}%
+                      {Math.floor((metrics.totalConsentsSigned / totalConsentsSigned) * 100)}%
                     </Typography>
                   </Box>
                   <Typography variant="h4" sx={{ fontWeight: 700, color: '#414141', fontSize: 32 }}>
@@ -266,7 +266,7 @@ const StatCardPresentational: React.FC<StatCardPresentationalProps> = ({
                       <MdOutlineArrowUpward color="green" size={16} />
                     </SecondIconCircle>
                     <Typography variant="body2" sx={{ color: '#414141', fontWeight: 600, fontSize: 20 }}>
-                      {(metrics.totalFactSheetsRead / totalFactSheetsRead) * 100}%
+                      {Math.floor((metrics.totalFactSheetsRead / totalFactSheetsRead) * 100)}%
                     </Typography>
                   </Box>
                   <Typography variant="h4" sx={{ fontWeight: 700, color: '#414141', fontSize: 32 }}>

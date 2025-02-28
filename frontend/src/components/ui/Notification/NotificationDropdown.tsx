@@ -51,7 +51,7 @@ const NotificationDropdown: React.FC<NotificationDropdownProps> = ({ onClearAll 
             display="flex"
             justifyContent="space-between"
             alignItems="flex-start"
-            bgcolor="background.paper"
+          
             sx={{ position: 'relative', borderRadius: '60px' }}
           >
             <CloseIcon
@@ -70,7 +70,7 @@ const NotificationDropdown: React.FC<NotificationDropdownProps> = ({ onClearAll 
                 padding: '4px',               
               })}
             />
-            <Box sx={{ flexGrow: 1 }}>
+            <Box sx={{ flexGrow: 1,  color: '#414141' }}>
               <Box display="flex" alignItems="center" mb={1}>
                 <Typography variant="body1" fontWeight={600} sx={{ mr: 2, fontSize: 16 }}>
                   Notifications

@@ -1,7 +1,7 @@
 import React from 'react';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
 import NavbarPresentational from './NavbarPresentational';
-import NotificationDropdown from './NotificationDropdown';
+import NotificationDropdown from '../ui/Notification/NotificationDropdown';
 import { useNotifications } from '../../context/NotificationContext';
 import { useNavigate } from 'react-router-dom';
 import { NavbarContainerProps } from './NavbarInterfaces';

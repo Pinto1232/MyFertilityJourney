@@ -1,12 +1,9 @@
-// src/components/Navbar/NavbarPresentational.tsx
 import {
-  AppBar,
   Toolbar,
   IconButton,
   Typography,
   Avatar,
   Box,
-  styled,
   Badge,
   Menu,
   MenuItem,
@@ -17,30 +14,8 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import { ChevronLeftOutlined } from '@mui/icons-material';
 import React, { useState } from 'react';
 import { BiChevronDown } from 'react-icons/bi';
-
-const StyledAppBar = styled(AppBar)(({ theme }) => ({
-  width: '100%',
-  height: '70px',
-  zIndex: theme.zIndex.drawer + 1,
-  boxShadow: 'none',
-  borderBottom: `1px solid ${theme.palette.divider}`,
-  backgroundColor: theme.palette.background.paper,
-  color: theme.palette.text.primary,
-  position: 'relative',
-  display: 'flex',
-}));
-
-interface NavbarPresentationalProps {
-  toggleSidebar: () => void;
-  user: {
-    name: string;
-    avatar: string;
-    email: string;
-  };
-  notificationsCount: number;
-  onNotificationClick: () => void;
-  onLogout: () => void;
-}
+import { StyledAppBar } from './NavbarStyles';
+import { NavbarPresentationalProps } from './NavbarInterfaces';
 
 const NavbarPresentational: React.FC<NavbarPresentationalProps> = ({
   toggleSidebar,
@@ -117,7 +92,7 @@ const NavbarPresentational: React.FC<NavbarPresentationalProps> = ({
                 }}
                 alt={user.name}
               >
-                {user.name.split(' ').map((n) => n[0]).join('')}
+                {user.name.split(' ').map((n: string) => n[0]).join('')}
               </Avatar>
               <Typography
                 variant="subtitle2"

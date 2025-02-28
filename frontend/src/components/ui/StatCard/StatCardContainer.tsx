@@ -1,73 +1,91 @@
-// src/components/ui/StatCard/StatCardContainer.tsx
-import React from 'react';
-import { Grid } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { fetchMetrics, fetchPractices, registerUser } from '../../../api/services/api';
+import { AxiosError } from 'axios';
 import StatCardPresentational from './StatCardPresentational';
-import { AiOutlineUser } from 'react-icons/ai';
-import { FaBaby, FaBandAid } from 'react-icons/fa';
-import { MdOutlineCoPresent, MdOutlineArrowUpward } from 'react-icons/md';
-import { HiOutlineDocumentText } from 'react-icons/hi';
-import { StatCardProps } from './StatCard.types';
-
-const dummyData: StatCardProps[] = [
-  {
-    title: 'Total Practices',
-    total: 11,
-    percentage: '+15%',
-    mainIcon: <AiOutlineUser color="#5F97A0" size={30} />,
-    secondaryIcon: <MdOutlineArrowUpward color="green" size={16} />,
-  },
-  {
-    title: 'Total Subscribers',
-    total: 261,
-    percentage: '+15%',
-    mainIcon: <FaBaby color="#5F97A0" size={30} />,
-    secondaryIcon: <MdOutlineArrowUpward color="green" size={16} />,
-  },
-  {
-    title: 'Total Treatments',
-    total: 135,
-    percentage: '+15%',
-    mainIcon: <FaBandAid color="#5F97A0" size={30} />,
-    secondaryIcon: <MdOutlineArrowUpward color="green" size={16} />,
-  },
-  {
-    title: 'Total Consents',
-    total: 135,
-    percentage: '+15%',
-    mainIcon: <MdOutlineCoPresent color="#5F97A0" size={30} />,
-    secondaryIcon: <MdOutlineArrowUpward color="green" size={16} />,
-  },
-  {
-    title: 'Total Consents signed',
-    total: 2159,
-    percentage: '+15%',
-    mainIcon: <HiOutlineDocumentText color="#5F97A0" size={30} />,
-    secondaryIcon: <MdOutlineArrowUpward color="green" size={16} />,
-  },
-  {
-    title: 'Total Fact sheets read',
-    total: 2159,
-    percentage: '+15%',
-    mainIcon: <HiOutlineDocumentText color="#5F97A0" size={30} />,
-    secondaryIcon: <MdOutlineArrowUpward color="green" size={16} />,
-  },
-];
+import { UserProfile, Metrics, Practice } from './StatCard.types';
 
 const StatCardContainer: React.FC = () => {
+  const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
+  const [metrics, setMetrics] = useState<Metrics | null>(null);
+  const [practices, setPractices] = useState<Practice[]>([]);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    password: '',
+    phoneNumber: '',
+    address: '',
+    confirmPassword: '',
+  });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const metricsData = await fetchMetrics();
+        const practicesData = await fetchPractices();
+        setMetrics(metricsData);
+        setPractices(practicesData);
+        console.log('Metrics data on stat card:', metricsData);
+        console.log('Practices data on stat card:', practicesData);
+      } catch (error) {
+        const err = error as AxiosError;
+        if (err.response) {
+          console.error('Error response data:', err.response.data);
+          console.error('Error response status:', err.response.status);
+          console.error('Error response headers:', err.response.headers);
+        } else if (err.request) {
+          console.error('Error request data:', err.request);
+        } else {
+          console.error('Error message:', err.message);
+        }
+        console.error('Error config:', err.config);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const userData = await registerUser(formData);
+      setUserProfile(userData);
+      console.log('User data on stat card:', userData);
+    } catch (error) {
+      const err = error as AxiosError;
+      if (err.response) {
+        const responseData = err.response.data as { message: string };
+        if (responseData.message === 'Email is already taken') {
+          console.error('The email address is already in use.');
+        } else {
+          console.error('Error response data:', responseData);
+        }
+        console.error('Error response status:', err.response.status);
+        console.error('Error response headers:', err.response.headers);
+      } else if (err.request) {
+        console.error('Error request data:', err.request);
+      } else {
+        console.error('Error message:', err.message);
+      }
+      console.error('Error config:', err.config);
+    }
+  };
+
   return (
-    <Grid container spacing={4}>
-      {dummyData.map((item, index) => (
-        <Grid item xs={12} md={4}  py={4} key={index}>
-          <StatCardPresentational
-            title={item.title}
-            total={item.total}
-            percentage={item.percentage}
-            mainIcon={item.mainIcon}
-            secondaryIcon={item.secondaryIcon}
-          />
-        </Grid>
-      ))}
-    </Grid>
+    <StatCardPresentational
+      userProfile={userProfile}
+      metrics={metrics}
+      practices={practices}
+      formData={formData}
+      handleChange={handleChange}
+      handleSubmit={handleSubmit}
+    />
   );
 };
 

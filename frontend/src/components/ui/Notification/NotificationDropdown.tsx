@@ -12,34 +12,13 @@ import {
   Divider,
   Box,
 } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import CloseIcon from '@mui/icons-material/Close';
 import { HiOutlineTrash } from 'react-icons/hi';
 import { CiClock2 } from 'react-icons/ci';
-import { useNotifications, Notification } from '../../context/NotificationContext';
-import ConfirmationDialogPresentational from '../ui/ConfirmationDialog/ConfirmationDialogPresentational';
-
-const NotificationBox = styled(Box)(({ theme }) => ({
-  position: 'fixed',
-  right: '193px',
-  top: '100px',
-  width: '300px',
-  maxHeight: '55vh',
-  overflow: 'visible',
-  backgroundColor: '#fff',
-  zIndex: theme.zIndex.modal + 1,
-  boxShadow: theme.shadows[6],
-  borderRadius: '20px',
-  '& .MuiListItem-root': {
-    padding: theme.spacing(1.5, 2),
-    alignItems: 'flex-start',
-  },
-}));
-
-interface NotificationDropdownProps {
-  onClose: () => void;
-  onClearAll: () => void;
-}
+import { useNotifications, Notification } from '../../../context/NotificationContext';
+import ConfirmationDialogPresentational from '../ConfirmationDialog/ConfirmationDialogPresentational';
+import { NotificationBox } from './NotificationDropdownStyles';
+import { NotificationDropdownProps } from '../../ui/Notification/NotificationDropdownTypes';
 
 const NotificationDropdown: React.FC<NotificationDropdownProps> = ({ onClearAll }) => {
   const { notifications, deleteNotification } = useNotifications();
@@ -110,8 +89,7 @@ const NotificationDropdown: React.FC<NotificationDropdownProps> = ({ onClearAll 
               </Box>
               <Typography
                 variant="h1"
-  
-                sx={{ fontSize: 14, color: '#414141' , }}
+                sx={{ fontSize: 14, color: '#414141' }}
               >
                 You have {notifications.filter(n => n.unread).length} unread message
                 {notifications.filter(n => n.unread).length !== 1 && 's'}
@@ -119,7 +97,6 @@ const NotificationDropdown: React.FC<NotificationDropdownProps> = ({ onClearAll 
             </Box>
           </Box>
           <Divider />
-          {/* Notifications List */}
           <List sx={{ py: 0 }}>
             {notifications.map((notification, index) => (
               <React.Fragment key={notification.id}>
@@ -180,7 +157,6 @@ const NotificationDropdown: React.FC<NotificationDropdownProps> = ({ onClearAll 
               </React.Fragment>
             ))}
           </List>
-          {/* Clear All Button */}
           <Divider />
           <Box p={1.5} display="flex" justifyContent="center">
             <Button

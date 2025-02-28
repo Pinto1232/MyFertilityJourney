@@ -107,7 +107,10 @@ const PracticeTablePresentational: React.FC<PracticeTablePresentationalProps> = 
                       sx={{
                         '& .MuiSwitch-track': {
                           opacity: 1,
-                          backgroundColor: isActive ? '#67ADB9' : '#67ADB9',
+                          backgroundColor: isActive ? '#67ADB9' : '#E4F7F9',
+                        },
+                        '& .MuiSwitch-thumb': {
+                          backgroundColor: '#67ADB9',
                         },
                       }}
                     />

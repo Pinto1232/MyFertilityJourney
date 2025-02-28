@@ -20,8 +20,8 @@ const StatCardPresentational: React.FC<StatCardProps> = ({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: 'easeOut' }}
       sx={{
-        transition: 'transform 0.5s ease',
-        '&:hover': { transform: 'scale(1.03)' },
+        transition: 'transform 0.5s ease, box-shadow 0.5s ease',
+        '&:hover': { transform: 'scale(1.03)', boxShadow: '0px 8px 32px rgba(145, 158, 171, 0.4)', cursor: 'pointer' },
       }}
     >
       {/* Left side: Title & Main Value */}
@@ -33,7 +33,7 @@ const StatCardPresentational: React.FC<StatCardProps> = ({
           <SecondIconCircle
             sx={{
               transition: 'transform 0.5s ease',
-              '&:hover': { transform: 'rotate(10deg)' },
+              '&:hover': { transform: 'rotate(10deg) scale(1.1)', cursor: 'pointer' },
             }}
           >
             {secondaryIcon && secondaryIcon}
@@ -48,7 +48,14 @@ const StatCardPresentational: React.FC<StatCardProps> = ({
       </LeftSection>
 
       <RightSection>
-        <IconCircle>{mainIcon}</IconCircle>
+        <IconCircle
+          sx={{
+            transition: 'transform 0.5s ease',
+            '&:hover': { transform: 'rotate(10deg) scale(1.1)', cursor: 'pointer' },
+          }}
+        >
+          {mainIcon}
+        </IconCircle>
       </RightSection>
     </MotionCardContainer>
   );

@@ -1,4 +1,3 @@
-// src/components/ui/StatCard/StatCardContainer.tsx
 import React from 'react';
 import { Grid } from '@mui/material';
 import StatCardPresentational from './StatCardPresentational';

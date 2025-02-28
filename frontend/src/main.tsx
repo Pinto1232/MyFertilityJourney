@@ -6,6 +6,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import GlobalStyles from './styles/GlobalStyles';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { GlobalStateProvider } from './contexts/GlobalState.tsx';
 
 const queryClient = new QueryClient();
 
@@ -17,13 +18,15 @@ const theme = createTheme({
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider theme={theme}>
-        <LocalizationProvider dateAdapter={AdapterDateFns}>
-          <GlobalStyles />
-          <App />
-        </LocalizationProvider>
-      </ThemeProvider>
-    </QueryClientProvider>
+    <GlobalStateProvider>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider theme={theme}>
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <GlobalStyles />
+            <App />
+          </LocalizationProvider>
+        </ThemeProvider>
+      </QueryClientProvider>
+    </GlobalStateProvider>
   </StrictMode>
 );

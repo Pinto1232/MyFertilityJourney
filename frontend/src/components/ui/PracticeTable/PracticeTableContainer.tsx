@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import PracticeTablePresentational from './PracticeTablePresentational';
 import EditPracticeModal from './EditPracticeModal';
 import { PracticeData, PracticeApiData } from './PracticeTable.types';
-import { fetchPractices } from '../../../api/services/api';
+import useApi from '../../../api/services/api';
 
 const PracticeTableContainer: React.FC = () => {
+  const { fetchPractices } = useApi();
   const [rows, setRows] = useState<PracticeData[]>([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10); 
@@ -29,7 +30,7 @@ const PracticeTableContainer: React.FC = () => {
     };
 
     getPractices();
-  }, []);
+  }, [fetchPractices]);
 
   // Handlers for table actions
   const handleEdit = (row: PracticeData) => {

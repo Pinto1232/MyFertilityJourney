@@ -15,7 +15,7 @@ import {
 import CloseIcon from '@mui/icons-material/Close';
 import { HiOutlineTrash } from 'react-icons/hi';
 import { CiClock2 } from 'react-icons/ci';
-import { useNotifications, Notification } from '../../../context/NotificationContext';
+import { useNotifications, Notification } from '../../../contexts/NotificationContext';
 import ConfirmationDialogPresentational from '../ConfirmationDialog/ConfirmationDialogPresentational';
 import { NotificationBox } from './NotificationDropdownStyles';
 import { NotificationDropdownProps } from '../../ui/Notification/NotificationDropdownTypes';

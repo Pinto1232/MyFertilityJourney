@@ -4,10 +4,12 @@ import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import AuthForm from './AuthForm';
 import { AuthFormData } from './types';
-import { loginUser, registerUser } from '../../api/services/api'; 
+import useApi from '../../api/services/api';
 import axios from 'axios';
-import useSnackbar from '../../hook/useSnackbar';
+import useSnackbar from '../../hooks/useSnackbar';
 import { Alert, Snackbar } from '@mui/material';
+import { useGlobalState } from '../../hooks/useGlobalState';
+import Spinner from '../Spinner/Spinner';
 
 const AuthContainer: React.FC = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -15,10 +17,15 @@ const AuthContainer: React.FC = () => {
     email: '',
     password: '',
     confirmPassword: '',
+    name: '',
+    phoneNumber: '',
+    address: '',
   });
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const navigate = useNavigate();
   const { snackbar, showSnackbar, hideSnackbar } = useSnackbar();
+  const { loginUser, registerUser } = useApi();
+  const { loading, error, setError } = useGlobalState();
 
   const validate = (name: string, value: string) => {
     switch (name) {
@@ -105,6 +112,19 @@ const AuthContainer: React.FC = () => {
         onSubmit={handleSubmit}
         onSwitchAuth={() => setIsLogin(!isLogin)}
       />
+      {loading && <Spinner />}
+      {error && (
+        <Snackbar
+          open={!!error}
+          autoHideDuration={6000}
+          onClose={() => setError(null)}
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+        >
+          <Alert onClose={() => setError(null)} severity="error" sx={{ minWidth: '100%' }}>
+            {error}
+          </Alert>
+        </Snackbar>
+      )}
       <Snackbar
         open={snackbar.open}
         autoHideDuration={6000}

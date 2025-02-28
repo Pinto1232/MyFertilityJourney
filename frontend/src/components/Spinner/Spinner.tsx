@@ -1,7 +1,8 @@
+import React from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 
-const LoadingSpinner = () => {
+const Spinner: React.FC = () => {
   return (
     <Box
       sx={{
@@ -9,6 +10,12 @@ const LoadingSpinner = () => {
         justifyContent: 'center',
         alignItems: 'center',
         height: '100vh',
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100%',
+        backgroundColor: 'rgba(255, 255, 255, 0.7)',
+        zIndex: 9999,
       }}
     >
       <CircularProgress />
@@ -16,4 +23,4 @@ const LoadingSpinner = () => {
   );
 };
 
-export default LoadingSpinner;
+export default Spinner;

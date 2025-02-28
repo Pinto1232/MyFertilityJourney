@@ -3,6 +3,7 @@ import { Box, Button, Modal, TextField, Typography, MenuItem } from '@mui/materi
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { Practice } from './ManagePracticesTypes';
 import { styles } from './ManagePracticesStyles';
+import { useTheme } from '@mui/material/styles';
 
 interface ManagePracticesModalProps {
     open: boolean;
@@ -13,6 +14,7 @@ interface ManagePracticesModalProps {
 }
 
 const ManagePracticesModal: React.FC<ManagePracticesModalProps> = ({ open, onClose, onSave, practice, categories }) => {
+    const theme = useTheme();
     const [formData, setFormData] = useState<Practice>({
         id: 0,
         name: '',
@@ -65,7 +67,7 @@ const ManagePracticesModal: React.FC<ManagePracticesModalProps> = ({ open, onClo
 
     return (
         <Modal open={open} onClose={onClose}>
-            <Box sx={styles.modal}>
+            <Box sx={{ ...styles.modal, background: theme.palette.mode === 'dark' ? '#212B36' : undefined }}>
                 <Typography variant="h6" sx={styles.modalTitle}>
                     {practice ? 'Edit Practice' : 'Add Practice'}
                 </Typography>

@@ -1,0 +1,33 @@
+export const errorMessageStyles = {
+  container: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100vh',
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    width: '100%',
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    zIndex: 9999,
+    flexDirection: 'column',
+    color: '#fff',
+    padding: '20px',
+    boxSizing: 'border-box',
+  },
+  icon: {
+    fontSize: '50px',
+    color: '#f44336',
+    marginBottom: '10px',
+  },
+  button: {
+    marginTop: '20px',
+    padding: '10px 20px',
+    backgroundColor: '#f44336',
+    color: '#fff',
+    border: 'none',
+    borderRadius: '4px',
+    cursor: 'pointer',
+    fontSize: '16px',
+  },
+};

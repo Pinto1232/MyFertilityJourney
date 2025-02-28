@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import ProfilePresentational from './ProfilePresentational';
 import useApi from '../../api/services/api';
 import ProfileModal from './ProfileModal';
 import { UserProfile } from './ProfileTypes';
 import { useGlobalState } from '../../hooks/useGlobalState';
 import Spinner from '../Spinner/Spinner';
-import { Snackbar, Alert } from '@mui/material';
+import ErrorMessage from '../ErrorMessage/ErrorMessage';
 
 const ProfileContainer: React.FC = () => {
   const { fetchUserProfile } = useApi();
@@ -17,24 +17,31 @@ const ProfileContainer: React.FC = () => {
     address: '',
   });
   const [modalOpen, setModalOpen] = useState(false);
-  const { loading, error, setLoading, setError } = useGlobalState();
+  const { loading, setLoading, error, setError } = useGlobalState();
+  const [showSpinner, setShowSpinner] = useState(false);
+
+  const getUserProfile = useCallback(async () => {
+    setLoading(true);
+    setShowSpinner(false);
+    const spinnerTimeout = setTimeout(() => setShowSpinner(true), 500); // Delay spinner by 500ms
+    try {
+      const profile = await fetchUserProfile();
+      console.log('Fetched User Profile:', profile);
+      setUserProfile(profile);
+    } catch (error) {
+      console.error('Error fetching user profile:', error);
+    } finally {
+      clearTimeout(spinnerTimeout);
+      setLoading(false);
+      setShowSpinner(false);
+    }
+  }, [fetchUserProfile, setLoading]);
 
   useEffect(() => {
-    const getUserProfile = async () => {
-      try {
-        setLoading(true);
-        const profile = await fetchUserProfile();
-        console.log('Fetched User Profile:', profile);
-        setUserProfile(profile);
-      } catch (error) {
-        console.error('Error fetching user profile:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     getUserProfile();
-  }, [fetchUserProfile, setLoading]);
+    const interval = setInterval(getUserProfile, 60000); 
+    return () => clearInterval(interval);
+  }, [getUserProfile]);
 
   const handleEditProfile = () => {
     setModalOpen(true);
@@ -53,19 +60,8 @@ const ProfileContainer: React.FC = () => {
         onSave={handleSaveProfile}
         userProfile={userProfile}
       />
-      {loading && <Spinner />}
-      {error && (
-        <Snackbar
-          open={!!error}
-          autoHideDuration={6000}
-          onClose={() => setError(null)}
-          anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-        >
-          <Alert onClose={() => setError(null)} severity="error" sx={{ minWidth: '100%' }}>
-            {error}
-          </Alert>
-        </Snackbar>
-      )}
+      {showSpinner && loading && <Spinner />}
+      {error && <ErrorMessage message={error} onClose={() => setError(null)} />}
     </>
   );
 };

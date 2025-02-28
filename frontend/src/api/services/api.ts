@@ -2,6 +2,7 @@ import axios from 'axios';
 import { Practice } from '../../components/ManagePractices/ManagePracticesTypes';
 import { UserProfile } from '../../components/Profile/ProfileTypes';
 import { useGlobalState } from '../../hooks/useGlobalState';
+import { useCallback } from 'react';
 
 interface AuthFormData {
   email: string;
@@ -17,7 +18,7 @@ const API_URL = 'http://localhost:5006/api';
 const useApi = () => {
   const { setLoading, setError } = useGlobalState();
 
-  const loginUser = async (email: string, password: string) => {
+  const loginUser = useCallback(async (email: string, password: string) => {
     setLoading(true);
     setError(null);
     try {
@@ -35,9 +36,9 @@ const useApi = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [setLoading, setError]);
 
-  const registerUser = async (formData: AuthFormData) => {
+  const registerUser = useCallback(async (formData: AuthFormData) => {
     setLoading(true);
     setError(null);
     try {
@@ -51,9 +52,9 @@ const useApi = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [setLoading, setError]);
 
-  const fetchMetrics = async () => {
+  const fetchMetrics = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
@@ -73,9 +74,9 @@ const useApi = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [setLoading, setError]);
 
-  const fetchLogs = async () => {
+  const fetchLogs = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
@@ -95,9 +96,9 @@ const useApi = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [setLoading, setError]);
 
-  const fetchPractices = async () => {
+  const fetchPractices = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
@@ -117,9 +118,9 @@ const useApi = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [setLoading, setError]);
 
-  const fetchUserProfile = async () => {
+  const fetchUserProfile = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
@@ -142,9 +143,9 @@ const useApi = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [setLoading, setError]);
 
-  const updateUserProfile = async (userProfile: UserProfile) => {
+  const updateUserProfile = useCallback(async (userProfile: UserProfile) => {
     setLoading(true);
     setError(null);
     try {
@@ -167,9 +168,9 @@ const useApi = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [setLoading, setError]);
 
-  const savePractice = async (practice: Practice) => {
+  const savePractice = useCallback(async (practice: Practice) => {
     setLoading(true);
     setError(null);
     try {
@@ -189,9 +190,9 @@ const useApi = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [setLoading, setError]);
 
-  const updatePractice = async (practice: Practice) => {
+  const updatePractice = useCallback(async (practice: Practice) => {
     setLoading(true);
     setError(null);
     try {
@@ -211,7 +212,7 @@ const useApi = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [setLoading, setError]);
 
   return {
     loginUser,

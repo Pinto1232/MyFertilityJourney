@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import useApi from '../../../api/services/api';
 import { AxiosError } from 'axios';
 import StatCardPresentational from './StatCardPresentational';
@@ -18,32 +18,32 @@ const StatCardContainer: React.FC = () => {
     confirmPassword: '',
   });
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const metricsData = await fetchMetrics();
-        const practicesData = await fetchPractices();
-        setMetrics(metricsData);
-        setPractices(practicesData);
-        console.log('Metrics data on stat card:', metricsData);
-        console.log('Practices data on stat card:', practicesData);
-      } catch (error) {
-        const err = error as AxiosError;
-        if (err.response) {
-          console.error('Error response data:', err.response.data);
-          console.error('Error response status:', err.response.status);
-          console.error('Error response headers:', err.response.headers);
-        } else if (err.request) {
-          console.error('Error request data:', err.request);
-        } else {
-          console.error('Error message:', err.message);
-        }
-        console.error('Error config:', err.config);
+  const fetchData = useCallback(async () => {
+    try {
+      const metricsData = await fetchMetrics();
+      const practicesData = await fetchPractices();
+      setMetrics(metricsData);
+      setPractices(practicesData);
+      console.log('Metrics data on stat card:', metricsData);
+      console.log('Practices data on stat card:', practicesData);
+    } catch (error) {
+      const err = error as AxiosError;
+      if (err.response) {
+        console.error('Error response data:', err.response.data);
+        console.error('Error response status:', err.response.status);
+        console.error('Error response headers:', err.response.headers);
+      } else if (err.request) {
+        console.error('Error request data:', err.request);
+      } else {
+        console.error('Error message:', err.message);
       }
-    };
-
-    fetchData();
+      console.error('Error config:', err.config);
+    }
   }, [fetchMetrics, fetchPractices]);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({

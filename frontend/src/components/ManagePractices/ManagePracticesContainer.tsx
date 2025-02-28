@@ -3,9 +3,9 @@ import ManagePracticesPresentational from './ManagePracticesPresentational';
 import ManagePracticesModal from './ManagePracticesModal';
 import useApi from '../../api/services/api';
 import { Practice } from './ManagePracticesTypes';
-import { Snackbar, Alert } from '@mui/material';
 import { useGlobalState } from '../../hooks/useGlobalState';
 import Spinner from '../Spinner/Spinner';
+import ErrorMessage from '../ErrorMessage/ErrorMessage';
 
 const ManagePracticesContainer: React.FC = () => {
   const { fetchPractices, savePractice, updatePractice } = useApi();
@@ -14,9 +14,13 @@ const ManagePracticesContainer: React.FC = () => {
   const [currentPractice, setCurrentPractice] = useState<Practice | undefined>(undefined);
   const [categories, setCategories] = useState<string[]>([]);
   const { loading, setLoading, error, setError } = useGlobalState();
+  const [showSpinner, setShowSpinner] = useState(false);
 
+  // Fetch practices data from the API
   const getPractices = useCallback(async () => {
     setLoading(true);
+    setShowSpinner(false);
+    const spinnerTimeout = setTimeout(() => setShowSpinner(true), 500);
     try {
       const response = await fetchPractices();
       console.log('Fetched Practices data on Manage practice:', response);
@@ -26,24 +30,32 @@ const ManagePracticesContainer: React.FC = () => {
     } catch (error) {
       console.error('Error fetching practices:', error);
     } finally {
+      clearTimeout(spinnerTimeout);
       setLoading(false);
+      setShowSpinner(false);
     }
   }, [fetchPractices, setLoading]);
 
+  // Fetch practices data on component mount
   useEffect(() => {
     getPractices();
+    const interval = setInterval(getPractices, 60000);
+    return () => clearInterval(interval);
   }, [getPractices]);
 
+  // Handle adding a new practice
   const handleAddPractice = () => {
     setCurrentPractice(undefined);
     setModalOpen(true);
   };
 
+  // Handle editing an existing practice
   const handleEditPractice = (practice: Practice) => {
     setCurrentPractice(practice);
     setModalOpen(true);
   };
 
+  // Handle saving a practice (either new or updated)
   const handleSavePractice = async (practice: Practice) => {
     console.log('Saved Practice:', practice);
     try {
@@ -60,10 +72,12 @@ const ManagePracticesContainer: React.FC = () => {
     }
   };
 
+  // Handle deleting a practice
   const handleDeletePractice = (id: number) => {
     setPractices(practices.filter(practice => practice.id !== id));
   };
 
+  // Handle toggling the status of a practice
   const handleTogglePractice = (id: number) => {
     setPractices(practices.map(practice =>
       practice.id === id ? { ...practice, status: practice.status === 'active' ? 'inactive' : 'active' } : practice
@@ -86,19 +100,8 @@ const ManagePracticesContainer: React.FC = () => {
         practice={currentPractice}
         categories={categories}
       />
-      {loading && <Spinner />}
-      {error && (
-        <Snackbar
-          open={!!error}
-          autoHideDuration={6000}
-          onClose={() => setError(null)}
-          anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-        >
-          <Alert onClose={() => setError(null)} severity="error" sx={{ minWidth: '100%' }}>
-            {error}
-          </Alert>
-        </Snackbar>
-      )}
+      {showSpinner && loading && <Spinner />}
+      {error && <ErrorMessage message={error} onClose={() => setError(null)} />}
     </>
   );
 };

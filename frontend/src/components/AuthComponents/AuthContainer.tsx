@@ -10,6 +10,7 @@ import useSnackbar from '../../hooks/useSnackbar';
 import { Alert, Snackbar } from '@mui/material';
 import { useGlobalState } from '../../hooks/useGlobalState';
 import Spinner from '../Spinner/Spinner';
+import ErrorMessage from '../ErrorMessage/ErrorMessage';
 
 const AuthContainer: React.FC = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -25,7 +26,7 @@ const AuthContainer: React.FC = () => {
   const navigate = useNavigate();
   const { snackbar, showSnackbar, hideSnackbar } = useSnackbar();
   const { loginUser, registerUser } = useApi();
-  const { loading, error, setError } = useGlobalState();
+  const { loading, setLoading, error, setError } = useGlobalState();
 
   const validate = (name: string, value: string) => {
     switch (name) {
@@ -59,7 +60,12 @@ const AuthContainer: React.FC = () => {
 
   const mutation = useMutation({
     mutationFn: async (data: AuthFormData) => {
-      return isLogin ? loginUser(data.email, data.password) : registerUser(data);
+      setLoading(true);
+      try {
+        return isLogin ? loginUser(data.email, data.password) : registerUser(data);
+      } finally {
+        setLoading(false);
+      }
     },
     onSuccess: (data) => {
       console.log(isLogin ? 'Login Success:' : 'Registration Success:', data);
@@ -113,18 +119,7 @@ const AuthContainer: React.FC = () => {
         onSwitchAuth={() => setIsLogin(!isLogin)}
       />
       {loading && <Spinner />}
-      {error && (
-        <Snackbar
-          open={!!error}
-          autoHideDuration={6000}
-          onClose={() => setError(null)}
-          anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-        >
-          <Alert onClose={() => setError(null)} severity="error" sx={{ minWidth: '100%' }}>
-            {error}
-          </Alert>
-        </Snackbar>
-      )}
+      {error && <ErrorMessage message={error} onClose={() => setError(null)} />}
       <Snackbar
         open={snackbar.open}
         autoHideDuration={6000}

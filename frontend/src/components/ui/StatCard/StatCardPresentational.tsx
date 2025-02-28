@@ -50,7 +50,7 @@ const StatCardPresentational: React.FC<StatCardPresentationalProps> = ({
                         '&:hover': { transform: 'rotate(10deg) scale(1.1)', cursor: 'pointer' },
                       }}
                     >
-                      <MdOutlineArrowUpward color="green" size={16} />
+                      <MdOutlineArrowUpward color={theme.palette.mode === 'dark' ? '#FFFF' : 'green'} size={16} />
                     </SecondIconCircle>
                     <Typography variant="body2" sx={{ color: theme.palette.mode === 'dark' ? '#FFFFFF' : '#414141', fontWeight: 600, fontSize: 20 }}>
                       {Math.floor((metrics.totalUsers / totalPossibleUsers) * 100)}%
@@ -93,7 +93,7 @@ const StatCardPresentational: React.FC<StatCardPresentationalProps> = ({
                         '&:hover': { transform: 'rotate(10deg) scale(1.1)', cursor: 'pointer' },
                       }}
                     >
-                      <MdOutlineArrowUpward color="green" size={16} />
+                      <MdOutlineArrowUpward color={theme.palette.mode === 'dark' ? '#FFFF' : 'green'} size={16} />
                     </SecondIconCircle>
                     <Typography variant="body2" sx={{ color: theme.palette.mode === 'dark' ? '#FFFFFF' : '#414141', fontWeight: 600, fontSize: 20 }}>
                       {Math.floor(metrics.totalPractices / totalPractices * 100)}%
@@ -137,7 +137,7 @@ const StatCardPresentational: React.FC<StatCardPresentationalProps> = ({
                         '&:hover': { transform: 'rotate(10deg) scale(1.1)', cursor: 'pointer' },
                       }}
                     >
-                      <MdOutlineArrowUpward color="green" size={16} />
+                      <MdOutlineArrowUpward color={theme.palette.mode === 'dark' ? '#FFFF' : 'green'} size={16} />
                     </SecondIconCircle>
                     <Typography variant="body2" sx={{ color: theme.palette.mode === 'dark' ? '#FFFFFF' : '#414141', fontWeight: 600, fontSize: 20 }}>
                       {Math.floor((metrics.totalTreatments / totalTreatments) * 100)}%
@@ -180,7 +180,7 @@ const StatCardPresentational: React.FC<StatCardPresentationalProps> = ({
                         '&:hover': { transform: 'rotate(10deg) scale(1.1)', cursor: 'pointer' },
                       }}
                     >
-                      <MdOutlineArrowUpward color="green" size={16} />
+                      <MdOutlineArrowUpward color={theme.palette.mode === 'dark' ? '#FFFF' : 'green'} size={16} />
                     </SecondIconCircle>
                     <Typography variant="body2" sx={{ color: theme.palette.mode === 'dark' ? '#FFFFFF' : '#414141', fontWeight: 600, fontSize: 20 }}>
                       {Math.floor((metrics.totalConsents / totalConsents) * 100)}%
@@ -223,7 +223,7 @@ const StatCardPresentational: React.FC<StatCardPresentationalProps> = ({
                         '&:hover': { transform: 'rotate(10deg) scale(1.1)', cursor: 'pointer' },
                       }}
                     >
-                      <MdOutlineArrowUpward color="green" size={16} />
+                      <MdOutlineArrowUpward color={theme.palette.mode === 'dark' ? '#FFFF' : 'green'} size={16} />
                     </SecondIconCircle>
                     <Typography variant="body2" sx={{ color: theme.palette.mode === 'dark' ? '#FFFFFF' : '#414141', fontWeight: 600, fontSize: 20 }}>
                       {Math.floor((metrics.totalConsentsSigned / totalConsentsSigned) * 100)}%
@@ -266,7 +266,7 @@ const StatCardPresentational: React.FC<StatCardPresentationalProps> = ({
                         '&:hover': { transform: 'rotate(10deg) scale(1.1)', cursor: 'pointer' },
                       }}
                     >
-                      <MdOutlineArrowUpward color="green" size={16} />
+                      <MdOutlineArrowUpward color={theme.palette.mode === 'dark' ? '#FFFF' : 'green'} size={16} />
                     </SecondIconCircle>
                     <Typography variant="body2" sx={{ color: theme.palette.mode === 'dark' ? '#FFFFFF' : '#414141', fontWeight: 600, fontSize: 20 }}>
                       {Math.floor((metrics.totalFactSheetsRead / totalFactSheetsRead) * 100)}%

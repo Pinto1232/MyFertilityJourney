@@ -41,37 +41,48 @@ const ManagePracticesPresentational: React.FC<ManagePracticesPresentationalProps
           Here you can manage your practices. Below is the list of your practices:
         </Typography>
       </Box>
-      {practices.map((practice, index) => (
-        <Box key={index} sx={styles.practiceBox}>
-          <Box sx={styles.practiceInfo}>
-            <Typography variant="h6" sx={styles.practiceName}>
-              {practice.name}
-            </Typography>
-            <Typography variant="body2" sx={styles.practiceDescription}>
-              Description: {practice.description}
-            </Typography>
-            <Typography variant="body2" sx={styles.practiceCategory}>
-              Category: {practice.category}
-            </Typography>
-            <Typography variant="body2" sx={styles.practiceContact}>
-              Contact: {practice.email}
-            </Typography>
+      {practices.map((practice, index) => {
+        const isActive = practice.status === 'active';
+        return (
+          <Box key={index} sx={styles.practiceBox}>
+            <Box sx={styles.practiceInfo}>
+              <Typography variant="h6" sx={styles.practiceName}>
+                {practice.name}
+              </Typography>
+              <Typography variant="body2" sx={styles.practiceDescription}>
+                Description: {practice.description}
+              </Typography>
+              <Typography variant="body2" sx={styles.practiceCategory}>
+                Category: {practice.category}
+              </Typography>
+              <Typography variant="body2" sx={styles.practiceContact}>
+                Contact: {practice.email}
+              </Typography>
+            </Box>
+            <Box sx={styles.actions}>
+              <Switch
+                checked={isActive}
+                onChange={() => onTogglePractice(practice.id)}
+                sx={{
+                  '& .MuiSwitch-track': {
+                    opacity: 1,
+                    backgroundColor: isActive ? '#67ADB9' : '#E4F7F9',
+                  },
+                  '& .MuiSwitch-thumb': {
+                    backgroundColor: '#67ADB9',
+                  },
+                }}
+              />
+              <IconButton onClick={() => onEditPractice(practice)} sx={styles.editButton}>
+                <EditIcon />
+              </IconButton>
+              <IconButton onClick={() => onDeletePractice(practice.id)} sx={styles.deleteButton}>
+                <DeleteIcon />
+              </IconButton>
+            </Box>
           </Box>
-          <Box sx={styles.actions}>
-            <Switch
-              checked={practice.status === 'active'}
-              onChange={() => onTogglePractice(practice.id)}
-              sx={styles.switch}
-            />
-            <IconButton onClick={() => onEditPractice(practice)} sx={styles.editButton}>
-              <EditIcon />
-            </IconButton>
-            <IconButton onClick={() => onDeletePractice(practice.id)} sx={styles.deleteButton}>
-              <DeleteIcon />
-            </IconButton>
-          </Box>
-        </Box>
-      ))}
+        );
+      })}
     </Box>
   );
 };

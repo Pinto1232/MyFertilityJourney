@@ -35,7 +35,10 @@ const SidebarPresentational: React.FC<SidebarPresentationalProps> = ({
             </ListItemIcon>
             <ListItemText
               primary={item.text}
-              sx={listItemTextStyles(isOpen, selectedMenuItem, item.text)}
+              sx={{
+                ...listItemTextStyles(isOpen, selectedMenuItem, item.text),
+                color: theme.palette.mode === 'dark' ? '#FFFFFF' : '#000000'
+              }}
             />
           </ListItem>
         ))}

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { fetchUserProfile, updateUserProfile } from '../../api/services/api';
-import { UserProfile } from './ProfileTypes'; // Import UserProfile type
+import useApi from '../../api/services/api'; 
+import { UserProfile } from './ProfileTypes'; 
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
 import axios from 'axios';
@@ -10,6 +10,7 @@ const Alert = (props: AlertProps) => {
 };
 
 const Profile: React.FC = () => {
+  const { fetchUserProfile, updateUserProfile } = useApi(); // Use useApi hook
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState<UserProfile>({
@@ -39,7 +40,7 @@ const Profile: React.FC = () => {
     };
 
     getUserProfile();
-  }, []);
+  }, [fetchUserProfile]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;

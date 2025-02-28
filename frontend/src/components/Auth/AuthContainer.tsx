@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { registerUser } from '../../api/services/api';
+import useApi from '../../api/services/api'; // Corrected import
 
 const RegisterForm = () => {
+  const { registerUser } = useApi(); // Use useApi hook
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -12,7 +13,7 @@ const RegisterForm = () => {
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    setFormData(prevData => ({
+    setFormData((prevData) => ({
       ...prevData,
       [name]: value,
     }));

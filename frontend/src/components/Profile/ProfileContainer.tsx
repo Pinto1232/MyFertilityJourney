@@ -23,7 +23,7 @@ const ProfileContainer: React.FC = () => {
   const getUserProfile = useCallback(async () => {
     setLoading(true);
     setShowSpinner(false);
-    const spinnerTimeout = setTimeout(() => setShowSpinner(true), 500); // Delay spinner by 500ms
+    const spinnerTimeout = setTimeout(() => setShowSpinner(true), 500); 
     try {
       const profile = await fetchUserProfile();
       console.log('Fetched User Profile:', profile);

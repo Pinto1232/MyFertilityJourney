@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import useApi from '../../api/services/api'; // Corrected import
+import useApi from '../../api/services/api'; 
 
 const RegisterForm = () => {
-  const { registerUser } = useApi(); // Use useApi hook
+  const { registerUser } = useApi(); 
   const [formData, setFormData] = useState({
     name: '',
     email: '',

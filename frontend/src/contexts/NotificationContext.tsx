@@ -1,4 +1,3 @@
-// src/context/NotificationContext.tsx
 import React, { createContext, useState, useContext, ReactNode } from 'react';
 
 export interface Notification {

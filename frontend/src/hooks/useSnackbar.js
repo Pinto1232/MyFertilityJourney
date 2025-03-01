@@ -1,4 +1,3 @@
-// useSnackbar.js
 import { useState, useCallback } from 'react';
 
 const useSnackbar = ({ initialState, defaultSeverity = 'success' } = {}) => {

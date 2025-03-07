@@ -5,7 +5,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import GlobalStyles from './styles/GlobalStyles';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { GlobalStateProvider } from './contexts/GlobalState.tsx';
+import { GlobalStateProvider } from './contexts/GlobalStateProvider.tsx';
 
 const queryClient = new QueryClient();
 

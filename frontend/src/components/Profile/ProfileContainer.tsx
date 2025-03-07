@@ -3,7 +3,7 @@ import ProfilePresentational from './ProfilePresentational';
 import useApi from '../../api/services/api';
 import ProfileModal from './ProfileModal';
 import { UserProfile } from './ProfileTypes';
-import { useGlobalState } from '../../hooks/useGlobalState';
+import { useGlobalStateContext } from '../../hooks/useGlobalStateContext';
 import Spinner from '../Spinner/Spinner';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 
@@ -17,7 +17,7 @@ const ProfileContainer: React.FC = () => {
     address: '',
   });
   const [modalOpen, setModalOpen] = useState(false);
-  const { loading, setLoading, error, setError } = useGlobalState();
+  const { loading, setLoading, error, setError } = useGlobalStateContext();
   const [showSpinner, setShowSpinner] = useState(false);
 
   const getUserProfile = useCallback(async () => {

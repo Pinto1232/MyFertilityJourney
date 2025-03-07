@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Practice } from '../../components/ManagePractices/ManagePracticesTypes';
 import { UserProfile } from '../../components/Profile/ProfileTypes';
-import { useGlobalState } from '../../hooks/useGlobalState';
+import { useGlobalStateContext } from '../../hooks/useGlobalStateContext';
 import { useCallback } from 'react';
 
 interface AuthFormData {
@@ -16,7 +16,7 @@ interface AuthFormData {
 const API_URL = 'http://localhost:5006/api';
 
 const useApi = () => {
-  const { setLoading, setError } = useGlobalState();
+  const { setLoading, setError } = useGlobalStateContext();
 
   const loginUser = useCallback(async (email: string, password: string) => {
     setLoading(true);

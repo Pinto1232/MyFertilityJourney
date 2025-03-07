@@ -4,7 +4,7 @@ import DashboardPresentational from './Dashboard';
 import SidebarContainer from '../Sidebar/SidebarContainer';
 import NavbarContainer from '../Navbar/NavbarContainer';
 import useApi from '../../api/services/api';
-import { useGlobalState } from '../../hooks/useGlobalState';
+import { useGlobalStateContext } from '../../hooks/useGlobalStateContext';
 import Spinner from '../Spinner/Spinner';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 
@@ -12,7 +12,7 @@ const DashboardContainer: React.FC = () => {
   const { fetchMetrics, fetchLogs, fetchPractices, fetchUserProfile } = useApi();
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [selectedMenuItem, setSelectedMenuItem] = useState('Dashboard');
-  const { loading, setLoading, error, setError } = useGlobalState();
+  const { loading, setLoading, error, setError } = useGlobalStateContext();
 
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 

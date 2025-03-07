@@ -3,7 +3,7 @@ import ManagePracticesPresentational from './ManagePracticesPresentational';
 import ManagePracticesModal from './ManagePracticesModal';
 import useApi from '../../api/services/api';
 import { Practice } from './ManagePracticesTypes';
-import { useGlobalState } from '../../hooks/useGlobalState';
+import { useGlobalStateContext } from '../../hooks/useGlobalStateContext';
 import Spinner from '../Spinner/Spinner';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 
@@ -13,7 +13,7 @@ const ManagePracticesContainer: React.FC = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [currentPractice, setCurrentPractice] = useState<Practice | undefined>(undefined);
   const [categories, setCategories] = useState<string[]>([]);
-  const { loading, setLoading, error, setError } = useGlobalState();
+  const { loading, setLoading, error, setError } = useGlobalStateContext();
   const [showSpinner, setShowSpinner] = useState(false);
 
   // Fetch practices data from the API

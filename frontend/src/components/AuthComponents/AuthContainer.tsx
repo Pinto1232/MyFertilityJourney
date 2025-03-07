@@ -7,7 +7,7 @@ import useApi from '../../api/services/api';
 import axios from 'axios';
 import useSnackbar from '../../hooks/useSnackbar';
 import { Alert, Snackbar } from '@mui/material';
-import { useGlobalState } from '../../hooks/useGlobalState';
+import { useGlobalStateContext } from '../../hooks/useGlobalStateContext';
 import Spinner from '../Spinner/Spinner';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 
@@ -24,8 +24,8 @@ const AuthContainer: React.FC = () => {
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const navigate = useNavigate();
   const { snackbar, showSnackbar, hideSnackbar } = useSnackbar();
-  const { loginUser, registerUser } = useApi();
-  const { loading, setLoading, error, setError } = useGlobalState();
+  const { loginUser, registerUser} = useApi();
+  const { loading, setLoading, error, setError } = useGlobalStateContext();
 
   const validate = (name: string, value: string) => {
     switch (name) {

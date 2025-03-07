@@ -6,13 +6,13 @@ import { NotificationProvider } from './contexts/NotificationContext';
 import AuthContainer from './components/AuthComponents/AuthContainer';
 import DashboardContainer from './components/Dashboard/DashboardContainer';
 import GlobalStyles from './styles/GlobalStyles';
-import { useGlobalState } from './hooks/useGlobalState';
+import { useGlobalStateContext} from './hooks/useGlobalStateContext';
 import Spinner from './components/Spinner/Spinner';
 import { Snackbar, Alert } from '@mui/material';
 import { ThemeProviderWrapper } from './theme/ThemeProviderWrapper';
 
 const App: React.FC = () => {
-  const { loading, error, setError } = useGlobalState();
+  const { loading, error, setError } = useGlobalStateContext();
 
   return (
     <ThemeProviderWrapper>
